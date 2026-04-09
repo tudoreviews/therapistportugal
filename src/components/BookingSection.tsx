@@ -354,20 +354,26 @@ const BookingSection = () => {
                 </p>
                 {selectedDate ? (
                   <div className="grid grid-cols-3 gap-2">
-                    {timeSlots.map((time) => (
-                      <button
-                        key={time}
-                        onClick={() => setSelectedTime(time)}
-                        className={cn(
-                          "py-2.5 px-3 rounded-lg text-sm font-medium border transition-all",
-                          selectedTime === time
-                            ? "bg-primary text-primary-foreground border-primary"
-                            : "bg-card border-border text-foreground hover:border-primary/50"
-                        )}
-                      >
-                        {time}
-                      </button>
-                    ))}
+                    {timeSlots.map((time) => {
+                      const isBooked = bookedSlots.includes(time);
+                      return (
+                        <button
+                          key={time}
+                          onClick={() => !isBooked && setSelectedTime(time)}
+                          disabled={isBooked}
+                          className={cn(
+                            "py-2.5 px-3 rounded-lg text-sm font-medium border transition-all",
+                            isBooked
+                              ? "bg-muted text-muted-foreground border-border opacity-50 cursor-not-allowed line-through"
+                              : selectedTime === time
+                                ? "bg-primary text-primary-foreground border-primary"
+                                : "bg-card border-border text-foreground hover:border-primary/50"
+                          )}
+                        >
+                          {time}
+                        </button>
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="flex items-center justify-center h-40 text-muted-foreground text-sm">
