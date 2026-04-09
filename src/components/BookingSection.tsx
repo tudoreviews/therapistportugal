@@ -198,6 +198,18 @@ const BookingSection = () => {
           <p className="text-muted-foreground text-sm mb-6">
             Entraremos em contacto consigo para confirmar os detalhes.
           </p>
+          <a
+            href={`https://wa.me/351964195415?text=${encodeURIComponent(
+              `Olá, acabei de agendar ${selectedTreatment?.name} para o dia ${selectedDate ? format(selectedDate, "d 'de' MMMM", { locale: pt }) : ""} às ${selectedTime}. O meu nome é ${nome}.`
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block w-full mb-4"
+          >
+            <Button size="lg" className="w-full text-base bg-[#25D366] hover:bg-[#1da851] text-white">
+              Confirmar via WhatsApp
+            </Button>
+          </a>
           <Button onClick={handleReset} variant="outline">Agendar outro tratamento</Button>
         </div>
       </section>
