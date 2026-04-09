@@ -338,7 +338,7 @@ const BookingSection = () => {
                 <Calendar
                   mode="single"
                   selected={selectedDate}
-                  onSelect={(d) => { setSelectedDate(d); setSelectedTime(undefined); }}
+                  onSelect={(d) => { setSelectedDate(d); setSelectedTime(undefined); if (d && selectedTherapist) fetchBookedSlots(d, selectedTherapist.name); }}
                   disabled={(d) => d < new Date() || d.getDay() === 0}
                   locale={pt}
                   className="p-0 pointer-events-auto"
