@@ -55,11 +55,35 @@ const BookingSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]);
 
   // Contact fields
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [telemovel, setTelemovel] = useState("");
+
+  const fetchBookedSlots = async (date: Date, therapistName: string) => {
+    const startOfDay = new Date(date);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    const { data } = await supabase
+      .from("appointments")
+      .select("data_hora")
+      .eq("terapeuta", therapistName)
+      .gte("data_hora", startOfDay.toISOString())
+      .lte("data_hora", endOfDay.toISOString());
+
+    if (data) {
+      setBookedSlots(data.map((a) => {
+        const d = new Date(a.data_hora);
+        return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+      }));
+    } else {
+      setBookedSlots([]);
+    }
+  };
 
   const filteredTreatments = treatments.filter((t) =>
     t.name.toLowerCase().includes(searchQuery.toLowerCase())
