@@ -120,6 +120,7 @@ const BookingSection = () => {
       terapeuta: selectedTherapist.name,
       data_hora: dataHora.toISOString(),
       preco: selectedTreatment.price,
+      status: "pending",
     });
 
     setIsSubmitting(false);

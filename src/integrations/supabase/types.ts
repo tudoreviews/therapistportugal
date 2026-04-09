@@ -23,6 +23,7 @@ export type Database = {
           nome: string
           preco: number | null
           servico: string
+          status: string
           telemovel: string
           terapeuta: string
         }
@@ -34,6 +35,7 @@ export type Database = {
           nome: string
           preco?: number | null
           servico: string
+          status?: string
           telemovel: string
           terapeuta: string
         }
@@ -45,6 +47,7 @@ export type Database = {
           nome?: string
           preco?: number | null
           servico?: string
+          status?: string
           telemovel?: string
           terapeuta?: string
         }
