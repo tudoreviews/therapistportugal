@@ -1,0 +1,1 @@
+CREATE POLICY "Allow public select" ON public.appointments FOR SELECT USING (true);
