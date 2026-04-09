@@ -2,11 +2,12 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
-import { CheckCircle, ArrowLeft, Clock, User, Search } from "lucide-react";
+import { CheckCircle, ArrowLeft, Clock, Search, Loader2 } from "lucide-react";
 import { format } from "date-fns";
 import { pt } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 type Treatment = {
   id: string;
@@ -53,6 +54,12 @@ const BookingSection = () => {
   const [selectedTime, setSelectedTime] = useState<string>();
   const [searchQuery, setSearchQuery] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Contact fields
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [telemovel, setTelemovel] = useState("");
 
   const filteredTreatments = treatments.filter((t) =>
     t.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -68,7 +75,37 @@ const BookingSection = () => {
     setStep(3);
   };
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
+    if (!selectedTreatment || !selectedTherapist || !selectedDate || !selectedTime) return;
+    if (!nome.trim() || !email.trim() || !telemovel.trim()) {
+      toast.error("Por favor preencha todos os dados de contacto.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    const [hours, minutes] = selectedTime.split(":").map(Number);
+    const dataHora = new Date(selectedDate);
+    dataHora.setHours(hours, minutes, 0, 0);
+
+    const { error } = await supabase.from("appointments").insert({
+      nome: nome.trim(),
+      email: email.trim(),
+      telemovel: telemovel.trim(),
+      servico: selectedTreatment.name,
+      terapeuta: selectedTherapist.name,
+      data_hora: dataHora.toISOString(),
+      preco: selectedTreatment.price,
+    });
+
+    setIsSubmitting(false);
+
+    if (error) {
+      toast.error("Erro ao guardar o agendamento. Tente novamente.");
+      console.error(error);
+      return;
+    }
+
     setSubmitted(true);
     toast.success("Agendamento confirmado com sucesso!");
   };
@@ -92,7 +129,12 @@ const BookingSection = () => {
     setSelectedTime(undefined);
     setSubmitted(false);
     setSearchQuery("");
+    setNome("");
+    setEmail("");
+    setTelemovel("");
   };
+
+  const contactFieldsFilled = nome.trim() && email.trim() && telemovel.trim();
 
   if (submitted) {
     return (
@@ -103,6 +145,10 @@ const BookingSection = () => {
           </div>
           <h2 className="text-3xl font-bold tracking-tight mb-4">Agendamento confirmado!</h2>
           <div className="bg-card border border-border rounded-xl p-6 text-left mb-8 space-y-3">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground text-sm">Nome</span>
+              <span className="text-sm font-medium">{nome}</span>
+            </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground text-sm">Tratamento</span>
               <span className="text-sm font-medium">{selectedTreatment?.name}</span>
@@ -254,7 +300,7 @@ const BookingSection = () => {
           </div>
         )}
 
-        {/* Step 3: Date & Time */}
+        {/* Step 3: Date, Time & Contact */}
         {step === 3 && (
           <div className="space-y-6">
             <p className="text-sm text-muted-foreground">
@@ -307,14 +353,42 @@ const BookingSection = () => {
               </div>
             </div>
 
+            {/* Contact info */}
+            <div className="bg-card border border-border rounded-xl p-5 space-y-4">
+              <p className="text-sm font-medium">Dados de contacto</p>
+              <div className="grid md:grid-cols-3 gap-3">
+                <Input
+                  placeholder="Nome completo"
+                  value={nome}
+                  onChange={(e) => setNome(e.target.value)}
+                />
+                <Input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <Input
+                  type="tel"
+                  placeholder="Telemóvel"
+                  value={telemovel}
+                  onChange={(e) => setTelemovel(e.target.value)}
+                />
+              </div>
+            </div>
+
             {/* Confirm */}
             <Button
               size="lg"
               className="w-full text-base"
-              disabled={!selectedDate || !selectedTime}
+              disabled={!selectedDate || !selectedTime || !contactFieldsFilled || isSubmitting}
               onClick={handleConfirm}
             >
-              Confirmar Agendamento — {selectedTreatment?.price} €
+              {isSubmitting ? (
+                <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> A guardar...</>
+              ) : (
+                <>Confirmar Agendamento — {selectedTreatment?.price} €</>
+              )}
             </Button>
 
             <p className="text-xs text-muted-foreground text-center">
