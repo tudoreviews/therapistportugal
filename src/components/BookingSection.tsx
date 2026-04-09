@@ -55,11 +55,35 @@ const BookingSection = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]);
 
   // Contact fields
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [telemovel, setTelemovel] = useState("");
+
+  const fetchBookedSlots = async (date: Date, therapistName: string) => {
+    const startOfDay = new Date(date);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    const { data } = await supabase
+      .from("appointments")
+      .select("data_hora")
+      .eq("terapeuta", therapistName)
+      .gte("data_hora", startOfDay.toISOString())
+      .lte("data_hora", endOfDay.toISOString());
+
+    if (data) {
+      setBookedSlots(data.map((a) => {
+        const d = new Date(a.data_hora);
+        return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+      }));
+    } else {
+      setBookedSlots([]);
+    }
+  };
 
   const filteredTreatments = treatments.filter((t) =>
     t.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -314,7 +338,7 @@ const BookingSection = () => {
                 <Calendar
                   mode="single"
                   selected={selectedDate}
-                  onSelect={(d) => { setSelectedDate(d); setSelectedTime(undefined); }}
+                  onSelect={(d) => { setSelectedDate(d); setSelectedTime(undefined); if (d && selectedTherapist) fetchBookedSlots(d, selectedTherapist.name); }}
                   disabled={(d) => d < new Date() || d.getDay() === 0}
                   locale={pt}
                   className="p-0 pointer-events-auto"
@@ -330,20 +354,26 @@ const BookingSection = () => {
                 </p>
                 {selectedDate ? (
                   <div className="grid grid-cols-3 gap-2">
-                    {timeSlots.map((time) => (
-                      <button
-                        key={time}
-                        onClick={() => setSelectedTime(time)}
-                        className={cn(
-                          "py-2.5 px-3 rounded-lg text-sm font-medium border transition-all",
-                          selectedTime === time
-                            ? "bg-primary text-primary-foreground border-primary"
-                            : "bg-card border-border text-foreground hover:border-primary/50"
-                        )}
-                      >
-                        {time}
-                      </button>
-                    ))}
+                    {timeSlots.map((time) => {
+                      const isBooked = bookedSlots.includes(time);
+                      return (
+                        <button
+                          key={time}
+                          onClick={() => !isBooked && setSelectedTime(time)}
+                          disabled={isBooked}
+                          className={cn(
+                            "py-2.5 px-3 rounded-lg text-sm font-medium border transition-all",
+                            isBooked
+                              ? "bg-muted text-muted-foreground border-border opacity-50 cursor-not-allowed line-through"
+                              : selectedTime === time
+                                ? "bg-primary text-primary-foreground border-primary"
+                                : "bg-card border-border text-foreground hover:border-primary/50"
+                          )}
+                        >
+                          {time}
+                        </button>
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="flex items-center justify-center h-40 text-muted-foreground text-sm">
