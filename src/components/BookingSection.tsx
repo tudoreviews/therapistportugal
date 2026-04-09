@@ -131,6 +131,19 @@ const BookingSection = () => {
       return;
     }
 
+    // Send webhook to Make.com (fire-and-forget, don't block confirmation)
+    supabase.functions.invoke("make-webhook", {
+      body: {
+        nome: nome.trim(),
+        email: email.trim(),
+        telemovel: telemovel.trim(),
+        servico: selectedTreatment.name,
+        terapeuta: selectedTherapist.name,
+        data_hora: dataHora.toISOString(),
+        preco: selectedTreatment.price,
+      },
+    }).catch((err) => console.error("Webhook error:", err));
+
     setSubmitted(true);
     toast.success("Agendamento confirmado com sucesso!");
   };
