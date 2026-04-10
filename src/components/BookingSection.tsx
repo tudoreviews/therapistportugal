@@ -8,6 +8,7 @@ import { pt } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import logo from "@/assets/logo.png";
 
 type Treatment = {
   id: string;
@@ -155,6 +156,7 @@ const BookingSection = () => {
     return (
       <section id="agendar" className="py-24 px-6">
         <div className="max-w-lg mx-auto text-center">
+          <img src={logo} alt="Unconventional Therapist" className="h-16 w-auto object-contain mx-auto mb-6" />
           <div className="w-16 h-16 rounded-full bg-primary/10 mx-auto mb-6 flex items-center justify-center">
             <CheckCircle className="text-primary" size={32} />
           </div>

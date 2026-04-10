@@ -1,4 +1,5 @@
 import { Mail, Phone, MapPin } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   return (
@@ -6,9 +7,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           <div>
-            <h3 className="font-bold text-lg mb-4" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-              <span className="text-primary">U</span>nconventional <span className="text-primary">T</span>herapist
-            </h3>
+            <img src={logo} alt="Unconventional Therapist" className="h-12 w-auto object-contain mb-4" />
             <p className="text-sm text-muted-foreground leading-relaxed">
               Terapias inovadoras e personalizadas para transformar a sua saúde e bem-estar.
             </p>
