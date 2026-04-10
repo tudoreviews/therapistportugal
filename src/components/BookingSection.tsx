@@ -17,12 +17,7 @@ type Treatment = {
   description: string;
 };
 
-type Therapist = {
-  id: string;
-  name: string;
-  specialty: string;
-  avatar: string;
-};
+const THERAPIST_NAME = "Dr. Nuno Therapist";
 
 const treatments: Treatment[] = [
   { id: "hernia", name: "Recuperação de Hérnia Discal", price: 65, duration: "60 min", description: "Tratamento especializado para hérnias discais com técnicas manuais avançadas" },
@@ -35,12 +30,6 @@ const treatments: Treatment[] = [
   { id: "fascial", name: "Libertação Miofascial", price: 55, duration: "50 min", description: "Técnicas de libertação de tecido fascial para maior mobilidade" },
 ];
 
-const therapists: Therapist[] = [
-  { id: "dr-silva", name: "Dr. Ricardo Silva", specialty: "Terapia Manual & Hérnias", avatar: "RS" },
-  { id: "dra-costa", name: "Dra. Ana Costa", specialty: "Dor Crónica & Postural", avatar: "AC" },
-  { id: "dr-santos", name: "Dr. Miguel Santos", specialty: "Terapia Desportiva", avatar: "MS" },
-];
-
 const timeSlots = [
   "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
   "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
@@ -49,7 +38,6 @@ const timeSlots = [
 const BookingSection = () => {
   const [step, setStep] = useState(1);
   const [selectedTreatment, setSelectedTreatment] = useState<Treatment | null>(null);
-  const [selectedTherapist, setSelectedTherapist] = useState<Therapist | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date>();
   const [selectedTime, setSelectedTime] = useState<string>();
   const [searchQuery, setSearchQuery] = useState("");
@@ -57,12 +45,11 @@ const BookingSection = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bookedSlots, setBookedSlots] = useState<string[]>([]);
 
-  // Contact fields
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [telemovel, setTelemovel] = useState("");
 
-  const fetchBookedSlots = async (date: Date, therapistName: string) => {
+  const fetchBookedSlots = async (date: Date) => {
     const startOfDay = new Date(date);
     startOfDay.setHours(0, 0, 0, 0);
     const endOfDay = new Date(date);
@@ -71,7 +58,7 @@ const BookingSection = () => {
     const { data } = await supabase
       .from("appointments")
       .select("data_hora")
-      .eq("terapeuta", therapistName)
+      .eq("terapeuta", THERAPIST_NAME)
       .gte("data_hora", startOfDay.toISOString())
       .lte("data_hora", endOfDay.toISOString());
 
@@ -94,13 +81,8 @@ const BookingSection = () => {
     setStep(2);
   };
 
-  const handleSelectTherapist = (therapist: Therapist) => {
-    setSelectedTherapist(therapist);
-    setStep(3);
-  };
-
   const handleConfirm = async () => {
-    if (!selectedTreatment || !selectedTherapist || !selectedDate || !selectedTime) return;
+    if (!selectedTreatment || !selectedDate || !selectedTime) return;
     if (!nome.trim() || !email.trim() || !telemovel.trim()) {
       toast.error("Por favor preencha todos os dados de contacto.");
       return;
@@ -117,7 +99,7 @@ const BookingSection = () => {
       email: email.trim(),
       telemovel: telemovel.trim(),
       servico: selectedTreatment.name,
-      terapeuta: selectedTherapist.name,
+      terapeuta: THERAPIST_NAME,
       data_hora: dataHora.toISOString(),
       preco: selectedTreatment.price,
       status: "pending",
@@ -131,14 +113,13 @@ const BookingSection = () => {
       return;
     }
 
-    // Send webhook to Make.com (fire-and-forget, don't block confirmation)
     supabase.functions.invoke("make-webhook", {
       body: {
         nome: nome.trim(),
         email: email.trim(),
         telemovel: telemovel.trim(),
         servico: selectedTreatment.name,
-        terapeuta: selectedTherapist.name,
+        terapeuta: THERAPIST_NAME,
         data_hora: dataHora.toISOString(),
         preco: selectedTreatment.price,
       },
@@ -150,19 +131,15 @@ const BookingSection = () => {
 
   const handleBack = () => {
     if (step === 2) {
-      setSelectedTherapist(null);
-      setStep(1);
-    } else if (step === 3) {
       setSelectedDate(undefined);
       setSelectedTime(undefined);
-      setStep(2);
+      setStep(1);
     }
   };
 
   const handleReset = () => {
     setStep(1);
     setSelectedTreatment(null);
-    setSelectedTherapist(null);
     setSelectedDate(undefined);
     setSelectedTime(undefined);
     setSubmitted(false);
@@ -193,7 +170,7 @@ const BookingSection = () => {
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground text-sm">Terapeuta</span>
-              <span className="text-sm font-medium">{selectedTherapist?.name}</span>
+              <span className="text-sm font-medium">{THERAPIST_NAME}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-muted-foreground text-sm">Data</span>
@@ -232,7 +209,6 @@ const BookingSection = () => {
   return (
     <section id="agendar" className="py-24 px-6">
       <div className="max-w-3xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-10">
           <p className="text-primary text-sm font-medium tracking-[0.2em] uppercase mb-3">Marque já</p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Agende o seu tratamento</h2>
@@ -240,7 +216,7 @@ const BookingSection = () => {
 
         {/* Progress */}
         <div className="flex items-center justify-center gap-2 mb-10">
-          {[1, 2, 3].map((s) => (
+          {[1, 2].map((s) => (
             <div key={s} className="flex items-center gap-2">
               <div
                 className={cn(
@@ -252,7 +228,7 @@ const BookingSection = () => {
               >
                 {s}
               </div>
-              {s < 3 && (
+              {s < 2 && (
                 <div className={cn("w-12 h-0.5 transition-all", step > s ? "bg-primary" : "bg-secondary")} />
               )}
             </div>
@@ -262,8 +238,7 @@ const BookingSection = () => {
         {/* Step labels */}
         <div className="flex justify-center gap-8 mb-8 text-xs text-muted-foreground">
           <span className={cn(step === 1 && "text-primary font-medium")}>Tratamento</span>
-          <span className={cn(step === 2 && "text-primary font-medium")}>Terapeuta</span>
-          <span className={cn(step === 3 && "text-primary font-medium")}>Data & Hora</span>
+          <span className={cn(step === 2 && "text-primary font-medium")}>Data & Hora</span>
         </div>
 
         {/* Back button */}
@@ -320,58 +295,26 @@ const BookingSection = () => {
           </div>
         )}
 
-        {/* Step 2: Therapist */}
+        {/* Step 2: Date, Time & Contact */}
         {step === 2 && (
-          <div className="space-y-4">
-            <p className="text-sm text-muted-foreground mb-2">
-              Selecione o terapeuta para <span className="text-foreground font-medium">{selectedTreatment?.name}</span>
-            </p>
-            <div className="grid gap-3">
-              {therapists.map((therapist) => (
-                <button
-                  key={therapist.id}
-                  onClick={() => handleSelectTherapist(therapist)}
-                  className="w-full text-left bg-card border border-border rounded-xl p-5 hover:border-primary/50 hover:bg-card/80 transition-all group"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-sm shrink-0">
-                      {therapist.avatar}
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                        {therapist.name}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">{therapist.specialty}</p>
-                    </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Step 3: Date, Time & Contact */}
-        {step === 3 && (
           <div className="space-y-6">
             <p className="text-sm text-muted-foreground">
               <span className="text-foreground font-medium">{selectedTreatment?.name}</span> com{" "}
-              <span className="text-foreground font-medium">{selectedTherapist?.name}</span>
+              <span className="text-foreground font-medium">{THERAPIST_NAME}</span>
             </p>
 
             <div className="grid md:grid-cols-2 gap-6">
-              {/* Calendar */}
               <div className="bg-card border border-border rounded-xl p-4">
                 <Calendar
                   mode="single"
                   selected={selectedDate}
-                  onSelect={(d) => { setSelectedDate(d); setSelectedTime(undefined); if (d && selectedTherapist) fetchBookedSlots(d, selectedTherapist.name); }}
+                  onSelect={(d) => { setSelectedDate(d); setSelectedTime(undefined); if (d) fetchBookedSlots(d); }}
                   disabled={(d) => d < new Date() || d.getDay() === 0}
                   locale={pt}
                   className="p-0 pointer-events-auto"
                 />
               </div>
 
-              {/* Time slots */}
               <div>
                 <p className="text-sm font-medium mb-3">
                   {selectedDate
@@ -409,31 +352,15 @@ const BookingSection = () => {
               </div>
             </div>
 
-            {/* Contact info */}
             <div className="bg-card border border-border rounded-xl p-5 space-y-4">
               <p className="text-sm font-medium">Dados de contacto</p>
               <div className="grid md:grid-cols-3 gap-3">
-                <Input
-                  placeholder="Nome completo"
-                  value={nome}
-                  onChange={(e) => setNome(e.target.value)}
-                />
-                <Input
-                  type="email"
-                  placeholder="Email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <Input
-                  type="tel"
-                  placeholder="Telemóvel"
-                  value={telemovel}
-                  onChange={(e) => setTelemovel(e.target.value)}
-                />
+                <Input placeholder="Nome completo" value={nome} onChange={(e) => setNome(e.target.value)} />
+                <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Input type="tel" placeholder="Telemóvel" value={telemovel} onChange={(e) => setTelemovel(e.target.value)} />
               </div>
             </div>
 
-            {/* Confirm */}
             <Button
               size="lg"
               className="w-full text-base"
