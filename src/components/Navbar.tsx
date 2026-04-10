@@ -14,8 +14,11 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <button onClick={() => scrollTo("hero")} className="flex items-center">
+        <button onClick={() => scrollTo("hero")} className="flex items-center gap-2">
           <img src={logo} alt="Unconventional Therapist" className="h-10 w-auto object-contain" />
+          <span className="font-bold text-lg tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+            <span className="text-primary">U</span>nconventional <span className="text-primary">T</span>herapist
+          </span>
         </button>
 
         <div className="hidden md:flex items-center gap-8">
