@@ -7,7 +7,12 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           <div>
-            <img src={logo} alt="Unconventional Therapist" className="h-12 w-auto object-contain mb-4" />
+            <div className="flex items-center gap-3 mb-4">
+              <img src={logo} alt="Unconventional Therapist" className="h-12 w-auto object-contain" />
+              <h3 className="font-bold text-lg" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                <span className="text-primary">U</span>nconventional <span className="text-primary">T</span>herapist
+              </h3>
+            </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Terapias inovadoras e personalizadas para transformar a sua saúde e bem-estar.
             </p>
