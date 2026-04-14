@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import drNunoImg from "@/assets/dr-nuno-santos.jpeg";
 
 const AboutSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -33,20 +34,12 @@ const AboutSection = () => {
         <div className="grid md:grid-cols-2 gap-16 items-center">
           {/* Image */}
           <div className="relative">
-            <div className="aspect-[3/4] rounded-2xl bg-card border border-border overflow-hidden flex items-center justify-center">
-              <div className="text-center p-8">
-                <div className="w-24 h-24 rounded-full bg-primary/10 mx-auto mb-6 flex items-center justify-center">
-                  <span
-                    className="text-primary text-3xl font-bold"
-                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                  >
-                    NS
-                  </span>
-                </div>
-                <p className="text-muted-foreground text-sm">
-                  Foto do Dr. Nuno Santos
-                </p>
-              </div>
+            <div className="aspect-[3/4] rounded-2xl bg-card border border-border overflow-hidden">
+              <img
+                src={drNunoImg}
+                alt="Dr. Nuno Santos - Unconventional Therapist"
+                className="w-full h-full object-cover object-top"
+              />
             </div>
             <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary/5 rounded-2xl -z-10" />
           </div>
