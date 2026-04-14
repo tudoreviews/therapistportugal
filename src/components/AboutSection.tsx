@@ -52,23 +52,21 @@ const AboutSection = () => {
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6">
               O Especialista: Nuno Santos
             </h2>
-            <div className="space-y-4 text-muted-foreground leading-relaxed mb-8">
+            <div className="space-y-4 text-muted-foreground leading-relaxed mb-8 text-sm md:text-base">
               <p>
-                O Dr. Nuno Santos é o fundador e terapeuta principal da
-                Unconventional Therapist. Com mais de uma década de experiência
-                clínica, especializou-se em abordagens terapêuticas inovadoras
-                que combinam métodos tradicionais com técnicas de última geração.
+                Sou Nuno Santos, um terapeuta não convencional apaixonado pelo que faço desde 1995.
               </p>
               <p>
-                A sua visão é clara: cada pessoa merece uma abordagem
-                personalizada e centrada nas suas necessidades reais. O objetivo
-                não é apenas tratar sintomas, mas promover uma transformação
-                profunda e duradoura na qualidade de vida dos seus pacientes.
+                O meu percurso começou no Batalhão de Serviços e Saúde do Ministério das Forças Armadas em Coimbra, onde iniciei a minha formação e paixão pelas terapias de saúde. Ao longo de mais de duas décadas, aprimorei os meus conhecimentos, tornando-me especialista em terapias alternativas focadas no equilíbrio e bem-estar integral.
               </p>
               <p>
-                Num ambiente acolhedor e confidencial, o Dr. Nuno Santos
-                acompanha cada caso com dedicação, rigor científico e uma
-                perspetiva humana que faz toda a diferença.
+                A minha formação inclui especialização em Socorrismo e Saúde Ocupacional, bem como a formação de Técnico em Fisioterapia. Esta base sólida permite-me oferecer uma abordagem abrangente e personalizada, adaptada às necessidades específicas de cada paciente.
+              </p>
+              <p>
+                Acredito no poder das terapias não convencionais para tratar e prevenir lesões, permitindo atingir a homeostase e desfrutar de uma vida plena. A minha missão é capacitá-lo a cuidar de si com naturalidade, promovendo a autossuficiência na sua jornada de bem-estar.
+              </p>
+              <p>
+                Cada sessão é realizada num ambiente acolhedor, seguro e profissional, utilizando técnicas avançadas como trigger points para proporcionar uma experiência de recuperação única e transformadora.
               </p>
             </div>
 
