@@ -45,14 +45,12 @@ const Footer = () => {
             </div>
             <a
               href="tel:+351936342632"
-              className="block bg-primary text-primary-foreground rounded-lg px-4 py-3 font-bold text-sm leading-snug shadow-lg hover:brightness-110 transition"
+              className="inline-block bg-primary text-primary-foreground rounded-lg px-3 py-2 font-bold text-xs leading-tight hover:brightness-110 transition"
             >
-              24H DE EMERGÊNCIAS:{" "}
+              24H EMERGÊNCIAS:{" "}
               <span className="underline underline-offset-2">+351 936 342 632</span>
-              <span className="block text-xs font-semibold opacity-80 mt-1">
-                (VALOR SOB CONSULTA)
-              </span>
             </a>
+            <p className="text-[11px] text-muted-foreground mt-2">(valor sob consulta)</p>
           </div>
         </div>
 
