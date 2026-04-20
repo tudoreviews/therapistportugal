@@ -21,7 +21,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-10 lg:gap-14">
           <button onClick={() => scrollTo("servicos")} className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors">Serviços</button>
           <button onClick={() => scrollTo("sobre")} className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors">Sobre</button>
-          <button onClick={() => scrollTo("testemunhos")} className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors">Resultados</button>
+          <button onClick={() => scrollTo("resultados")} className="text-base font-medium text-muted-foreground hover:text-foreground transition-colors">Resultados</button>
           <Button onClick={() => scrollTo("agendar")} size="lg" className="text-base px-6">Agendar Consulta</Button>
         </div>
 
@@ -34,7 +34,7 @@ const Navbar = () => {
         <div className="md:hidden bg-background border-b border-border px-6 pb-5 flex flex-col gap-4">
           <button onClick={() => scrollTo("servicos")} className="text-base font-medium text-muted-foreground hover:text-foreground text-left py-1">Serviços</button>
           <button onClick={() => scrollTo("sobre")} className="text-base font-medium text-muted-foreground hover:text-foreground text-left py-1">Sobre</button>
-          <button onClick={() => scrollTo("testemunhos")} className="text-base font-medium text-muted-foreground hover:text-foreground text-left py-1">Resultados</button>
+          <button onClick={() => scrollTo("resultados")} className="text-base font-medium text-muted-foreground hover:text-foreground text-left py-1">Resultados</button>
           <Button onClick={() => scrollTo("agendar")} size="lg" className="w-fit">Agendar Consulta</Button>
         </div>
       )}
