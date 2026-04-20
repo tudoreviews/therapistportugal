@@ -54,19 +54,19 @@ const AboutSection = () => {
             </h2>
             <div className="space-y-4 text-muted-foreground leading-relaxed mb-8 text-sm md:text-base">
               <p>
-                Sou Nuno Santos, um terapeuta não convencional apaixonado pelo que faço desde 1995.
+                Sou Nuno Santos, terapeuta não convencional apaixonado pelo que faço desde 1995.
               </p>
               <p>
-                O meu percurso começou no Batalhão de Serviços e Saúde do Ministério das Forças Armadas em Coimbra, onde iniciei a minha formação e paixão pelas terapias de saúde. Ao longo de mais de duas décadas, aprimorei os meus conhecimentos, tornando-me especialista em terapias alternativas focadas no equilíbrio e bem-estar integral.
+                O meu percurso iniciou-se no Batalhão de Serviços e Saúde das Forças Armadas, em Coimbra. Ao longo de mais de 25 anos, especializei-me em terapias alternativas focadas no equilíbrio e bem-estar integral.
               </p>
               <p>
-                A minha formação inclui especialização em Socorrismo e Saúde Ocupacional, bem como a formação de Técnico em Fisioterapia. Esta base sólida permite-me oferecer uma abordagem abrangente e personalizada, adaptada às necessidades específicas de cada paciente.
+                Com formação em Osteopatia, Socorrismo, Saúde Ocupacional e Técnico de Fisioterapia, ofereço uma abordagem personalizada e abrangente adaptada às necessidades de cada pessoa.
               </p>
               <p>
-                Acredito no poder das terapias não convencionais para tratar e prevenir lesões, permitindo atingir a homeostase e desfrutar de uma vida plena. A minha missão é capacitá-lo a cuidar de si com naturalidade, promovendo a autossuficiência na sua jornada de bem-estar.
+                Acredito no poder das terapias não convencionais para tratar, prevenir lesões e promover uma vida mais saudável e autónoma.
               </p>
               <p>
-                Cada sessão é realizada num ambiente acolhedor, seguro e profissional, utilizando técnicas avançadas como trigger points para proporcionar uma experiência de recuperação única e transformadora.
+                Cada sessão decorre num ambiente acolhedor e seguro, utilizando técnicas avançadas como trigger points, para proporcionar uma experiência única de recuperação e transformação.
               </p>
             </div>
 
