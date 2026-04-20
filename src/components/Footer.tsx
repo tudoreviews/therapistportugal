@@ -38,11 +38,21 @@ const Footer = () => {
 
           <div>
             <h4 className="font-semibold text-sm uppercase tracking-wider mb-4">Horário</h4>
-            <div className="space-y-2 text-sm text-muted-foreground">
+            <div className="space-y-2 text-sm text-muted-foreground mb-5">
               <p>Segunda a Sexta: 09:00 — 19:00</p>
               <p>Sábado: 09:00 — 13:00</p>
               <p>Domingo: Encerrado</p>
             </div>
+            <a
+              href="tel:+351936342632"
+              className="block bg-primary text-primary-foreground rounded-lg px-4 py-3 font-bold text-sm leading-snug shadow-lg hover:brightness-110 transition"
+            >
+              24H DE EMERGÊNCIAS:{" "}
+              <span className="underline underline-offset-2">+351 936 342 632</span>
+              <span className="block text-xs font-semibold opacity-80 mt-1">
+                (VALOR SOB CONSULTA)
+              </span>
+            </a>
           </div>
         </div>
 
