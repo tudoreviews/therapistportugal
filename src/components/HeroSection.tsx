@@ -39,11 +39,11 @@ const HeroSection = () => {
           </div>
           
           {/* Lado Direito: Imagem */}
-          <div className="flex justify-center items-center order-2 lg:h-[85vh] w-full">
+          <div className="flex justify-center lg:justify-end items-center order-2 w-full">
             <img
               src="/foto_nuno_santosterapia.png"
               alt="Nuno Santos Terapia"
-              className="w-full h-full object-contain mix-blend-multiply filter brightness-110"
+              className="w-[90%] lg:w-full h-auto object-contain mix-blend-multiply filter brightness-110"
             />
           </div>
           
