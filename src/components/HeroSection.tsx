@@ -5,11 +5,11 @@ const HeroSection = () => {
   return (
     <section id="hero" className="relative w-full min-h-screen flex flex-col md:flex-row bg-[#000000] overflow-hidden">
       {/* Text Content */}
-      <div className="flex-1 flex flex-col justify-center px-6 py-12 md:px-12 lg:px-24 z-10 text-center md:text-left pt-32 md:pt-0">
+      <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-20 md:px-12 lg:px-24 z-10 text-center md:text-left pt-32 md:pt-0">
         <div className="max-w-2xl">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black tracking-tighter leading-[1] mb-8 text-white uppercase italic">
-            SENTE DORES <br className="hidden sm:block" />
-            <span className="text-primary not-italic">PELO CORPO?</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tighter leading-[1] mb-8 text-white uppercase italic">
+            SENTE <span className="text-primary not-italic">DORES</span> <br className="hidden sm:block" />
+            PELO <span className="text-primary not-italic">CORPO?</span>
           </h1>
           <p className="text-gray-400 text-lg md:text-xl max-w-xl mb-10 leading-relaxed mx-auto md:mx-0 font-medium">
             Descubra como a terapia não convencional pode transformar a sua qualidade de vida, 
@@ -27,11 +27,11 @@ const HeroSection = () => {
       </div>
 
       {/* Image Content */}
-      <div className="w-full md:w-1/2 h-[400px] md:h-screen relative overflow-hidden">
+      <div className="w-full md:w-1/2 flex items-end justify-center md:justify-end h-[500px] md:h-screen relative">
         <img
           src={heroBanner}
-          alt="Dr. Nuno Santos - Terapia não convencional"
-          className="w-full h-full object-cover transition-all duration-700"
+          alt="Terapeutas - Terapia não convencional"
+          className="w-full h-full object-contain object-bottom transition-all duration-700"
         />
       </div>
     </section>
