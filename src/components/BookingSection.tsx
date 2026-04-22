@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { CheckCircle, ArrowLeft, Clock, Search, Loader2, Copy } from "lucide-react";
 import { format } from "date-fns";
 import { pt } from "date-fns/locale";
