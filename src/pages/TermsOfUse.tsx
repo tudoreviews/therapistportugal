@@ -1,11 +1,24 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 const TermsOfUse = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Navbar />
       <main className="max-w-4xl mx-auto px-6 py-24 md:py-32">
+        <Button 
+          variant="ghost" 
+          className="mb-8 hover:bg-secondary group transition-colors"
+          onClick={() => navigate(-1)}
+        >
+          <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />
+          Voltar
+        </Button>
         <h1 className="text-3xl md:text-5xl font-bold mb-8">Termos de Uso</h1>
         
         <div className="prose prose-invert max-w-none space-y-6 text-muted-foreground">
