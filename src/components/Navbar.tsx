@@ -22,12 +22,18 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 h-20 md:h-24 flex items-center justify-between">
-        <button 
-          onClick={() => scrollTo("hero")} 
+        <Link 
+          to="/"
+          onClick={(e) => {
+            if (isHomePage) {
+              e.preventDefault();
+              scrollTo("hero");
+            }
+          }}
           className="flex items-center shrink-0 hover:opacity-80 transition-opacity"
         >
           <img src={logo} alt="Unconventional Therapist" className="h-10 sm:h-12 md:h-16 w-auto object-contain" />
-        </button>
+        </Link>
 
         <div className="hidden md:flex items-center gap-8 lg:gap-14">
           <button onClick={() => scrollTo("servicos")} className="text-sm lg:text-base font-medium text-muted-foreground hover:text-primary transition-colors">Serviços</button>
