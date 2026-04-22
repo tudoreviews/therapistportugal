@@ -73,8 +73,8 @@ const AboutSection = () => {
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="block sm:inline-block">
               <Button
                 variant="outline"
-                size="lg"
-                className="w-full sm:w-auto gap-2 border-primary/30 text-primary hover:bg-primary/10 hover:text-primary h-12 md:h-14 px-8 text-base font-semibold rounded-xl"
+                size="default"
+                className="w-full sm:w-auto gap-2 border-primary/30 text-primary hover:bg-primary/10 hover:text-primary h-11 px-8 text-base font-semibold rounded-xl"
               >
                 <MessageCircle size={20} />
                 Contactar via WhatsApp
