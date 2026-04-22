@@ -20,7 +20,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border transition-all duration-300">
+    <nav className={cn(
+      "fixed top-0 left-0 right-0 z-50 border-b border-border transition-all duration-300",
+      isOpen ? "bg-background" : "bg-background/90 backdrop-blur-md"
+    )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 h-20 md:h-24 flex items-center justify-between">
         <Link 
           to="/"
@@ -53,7 +56,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div className={cn(
-        "fixed inset-0 top-[81px] bg-background/98 backdrop-blur-xl z-40 md:hidden transition-all duration-300 ease-in-out origin-top",
+        "fixed inset-0 top-[80px] bg-background z-40 md:hidden transition-all duration-300 ease-in-out origin-top",
         isOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-4 pointer-events-none"
       )}>
         <div className="flex flex-col items-center justify-start h-full pt-10 px-6 gap-8">
