@@ -42,7 +42,7 @@ const HeroSection = () => {
         <img
           src={heroBanner}
           alt="Terapeutas - Terapia não convencional"
-          className="w-full h-full object-contain md:object-right-bottom mix-blend-screen"
+          className="w-full h-full object-contain object-bottom md:object-right-bottom mix-blend-screen"
         />
       </div>
     </section>
