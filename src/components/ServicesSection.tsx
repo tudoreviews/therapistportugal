@@ -49,7 +49,7 @@ const ServicesSection = () => {
                 Soluções Estratégicas <br className="hidden sm:block" />
                 <span className="text-primary/80">para o Bem-Estar</span>
               </h2>
-              <p className="text-muted-foreground text-base md:text-lg lg:text-xl leading-relaxed">
+              <p className="text-base md:text-lg lg:text-xl">
                 Desenvolvo programas estratégicos de prevenção que ajudam organizações a reduzir custos indiretos associados a baixas médicas, melhorar o desempenho das equipas e aumentar o engagement interno. Através de intervenções práticas no local de trabalho — avaliação ergonómica, sessões preventivas, acompanhamento direcionado — é possível reduzir significativamente queixas de dor e otimizar o rendimento dos colaboradores.
               </p>
             </div>
@@ -85,7 +85,7 @@ const ServicesSection = () => {
                   <service.icon className="text-primary w-7 h-7 md:w-8 md:h-8" />
                 </div>
                 <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 tracking-tight">{service.title}</h3>
-                <p className="text-muted-foreground leading-relaxed mb-6 md:mb-8 flex-grow text-base md:text-lg italic opacity-80">{service.description}</p>
+                <p className="mb-6 md:mb-8 flex-grow text-base md:text-lg italic opacity-80">{service.description}</p>
                 <div className="pt-6 md:pt-8 border-t border-border/60">
                   {'price' in service ? (
                     <div className="flex flex-col">

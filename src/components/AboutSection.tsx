@@ -52,7 +52,7 @@ const AboutSection = () => {
             <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-bold tracking-tight mb-6 leading-tight">
               O Especialista: Nuno Santos
             </h2>
-            <div className="space-y-4 text-muted-foreground leading-relaxed mb-10 text-base md:text-lg">
+            <div className="space-y-4 mb-10 text-base md:text-lg">
               <p>
                 Sou Nuno Santos, terapeuta não convencional apaixonado pelo que faço desde 1995.
               </p>
