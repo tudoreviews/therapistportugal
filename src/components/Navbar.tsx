@@ -39,7 +39,7 @@ const Navbar = () => {
           <button onClick={() => scrollTo("servicos")} className="text-sm lg:text-base font-medium text-muted-foreground hover:text-primary transition-colors">Serviços</button>
           <button onClick={() => scrollTo("sobre")} className="text-sm lg:text-base font-medium text-muted-foreground hover:text-primary transition-colors">Sobre</button>
           <button onClick={() => scrollTo("resultados")} className="text-sm lg:text-base font-medium text-muted-foreground hover:text-primary transition-colors">Resultados</button>
-          <Button onClick={() => scrollTo("agendar")} size="lg" className="text-sm lg:text-base px-6 h-11">Agendar Consulta</Button>
+          <Button onClick={() => scrollTo("agendar")} size="sm" className="text-sm px-6">Agendar Consulta</Button>
         </div>
 
         <button 
@@ -62,8 +62,8 @@ const Navbar = () => {
           <button onClick={() => scrollTo("resultados")} className="text-2xl font-semibold text-foreground">Resultados</button>
           <Button 
             onClick={() => scrollTo("agendar")} 
-            size="lg" 
-            className="w-full text-lg h-14 mt-4"
+            size="default" 
+            className="w-full text-lg h-12 mt-4"
           >
             Agendar Consulta
           </Button>
