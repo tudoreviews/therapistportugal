@@ -97,8 +97,8 @@ const Footer = () => {
           <p className="text-xs text-muted-foreground leading-relaxed max-w-2xl mx-auto italic">
             Em caso de litígio, o consumidor pode recorrer a uma Entidade de Resolução Alternativa de Litígios de Consumo (ex: CNIACC - Centro Nacional de Informação e Arbitragem de Conflitos de Consumo).
           </p>
-          <p className="text-xs text-muted-foreground font-medium uppercase tracking-widest">
-            © {new Date().getFullYear()} Unconventional Therapist. Todos os direitos reservados.
+          <p className="text-xs text-muted-foreground font-medium uppercase tracking-widest px-4">
+            © 2026 Unconventional Therapist. Todos os direitos reservados. | Criado por <a href="https://webis.pt/" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-primary transition-colors lowercase">Webis</a>
           </p>
         </div>
       </div>
