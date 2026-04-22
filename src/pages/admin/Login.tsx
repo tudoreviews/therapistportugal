@@ -28,24 +28,24 @@ const Login = () => {
       toast.success("Login efetuado com sucesso!");
       navigate("/admin");
     } catch (error: any) {
-      toast.error("Erro no login: " + (error.message || "Credenciais inválidas"));
+      toast.error("Credenciais inválidas");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      <div className="w-full max-w-md bg-card border border-border p-8 rounded-2xl shadow-xl">
+    <div className="min-h-screen flex items-center justify-center bg-black px-4">
+      <div className="w-full max-w-md bg-zinc-900 border border-zinc-800 p-8 rounded-2xl shadow-2xl">
         <div className="flex flex-col items-center mb-8">
           <img src={logo} alt="Logo" className="h-16 w-auto mb-6" />
-          <h1 className="text-2xl font-bold text-foreground">Painel Administrativo</h1>
-          <p className="text-muted-foreground text-sm">Bem-vindo, Dr. Nuno Santos</p>
+          <h1 className="text-2xl font-bold text-white">Painel Administrativo</h1>
+          <p className="text-zinc-400 text-sm">Bem-vindo, Dr. Nuno Santos</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email" className="text-zinc-300">Email</Label>
             <Input 
               id="email" 
               type="email" 
@@ -53,23 +53,23 @@ const Login = () => {
               value={email} 
               onChange={(e) => setEmail(e.target.value)} 
               required 
-              className="bg-secondary/50"
+              className="bg-zinc-800 border-zinc-700 text-white placeholder:text-zinc-500"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="password">Palavra-passe</Label>
+            <Label htmlFor="password" className="text-zinc-300">Palavra-passe</Label>
             <Input 
               id="password" 
               type="password" 
               value={password} 
               onChange={(e) => setPassword(e.target.value)} 
               required 
-              className="bg-secondary/50"
+              className="bg-zinc-800 border-zinc-700 text-white"
             />
           </div>
           <Button 
             type="submit" 
-            className="w-full h-11 text-base font-semibold" 
+            className="w-full h-11 text-base font-semibold bg-white text-black hover:bg-zinc-200 transition-colors" 
             disabled={loading}
           >
             {loading ? "A entrar..." : "Entrar"}
