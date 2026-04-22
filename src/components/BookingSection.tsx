@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 import { CheckCircle, ArrowLeft, Clock, Search, Loader2, Copy } from "lucide-react";
 import { format } from "date-fns";
 import { pt } from "date-fns/locale";
@@ -49,6 +51,7 @@ const BookingSection = () => {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [telemovel, setTelemovel] = useState("");
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   const [paymentReference] = useState(() => Math.floor(100000000 + Math.random() * 900000000).toString().replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3"));
 
   const fetchBookedSlots = async (date: Date) => {
@@ -85,6 +88,10 @@ const BookingSection = () => {
 
   const handleConfirm = async () => {
     if (!selectedTreatment || !selectedDate || !selectedTime) return;
+    if (!acceptedTerms) {
+      toast.error("Por favor aceite a Política de Privacidade e os Termos de Uso.");
+      return;
+    }
     if (!nome.trim() || !email.trim() || !telemovel.trim()) {
       toast.error("Por favor preencha todos os dados de contacto.");
       return;
@@ -149,6 +156,7 @@ const BookingSection = () => {
     setNome("");
     setEmail("");
     setTelemovel("");
+    setAcceptedTerms(false);
   };
 
   const contactFieldsFilled = nome.trim() && email.trim() && telemovel.trim();
@@ -466,10 +474,25 @@ const BookingSection = () => {
               </div>
             </div>
 
+            <div className="flex items-start space-x-3 p-4 bg-muted/20 rounded-xl border border-border">
+              <Checkbox 
+                id="terms" 
+                checked={acceptedTerms} 
+                onCheckedChange={(checked) => setAcceptedTerms(checked === true)}
+                className="mt-1"
+              />
+              <Label 
+                htmlFor="terms" 
+                className="text-xs md:text-sm text-muted-foreground leading-relaxed cursor-pointer"
+              >
+                Li e aceito a <a href="/politica-privacidade" target="_blank" className="text-primary hover:underline">Política de Privacidade</a> e os <a href="/termos-uso" target="_blank" className="text-primary hover:underline">Termos de Uso</a>
+              </Label>
+            </div>
+
             <Button
               size="lg"
               className="w-full h-14 md:h-16 text-lg font-bold rounded-xl shadow-xl shadow-primary/20"
-              disabled={!selectedDate || !selectedTime || !contactFieldsFilled || isSubmitting}
+              disabled={!selectedDate || !selectedTime || !contactFieldsFilled || !acceptedTerms || isSubmitting}
               onClick={handleConfirm}
             >
               {isSubmitting ? (
