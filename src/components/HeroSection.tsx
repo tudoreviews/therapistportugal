@@ -15,7 +15,7 @@ const HeroSection = () => {
               SENTE <span className="text-[#B4D600]">DORES</span> PELO <span className="text-[#B4D600]">CORPO</span>?
             </h1>
             
-            <p className="text-white text-lg md:text-xl leading-relaxed mb-10 max-w-xl font-light">
+            <p className="text-lg md:text-xl mb-10 max-w-xl font-light">
               Especialistas em terapia não convencional focada na eliminação da dor e recuperação total da sua mobilidade de forma rápida e segura.
             </p>
             
