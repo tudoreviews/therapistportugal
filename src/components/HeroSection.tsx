@@ -5,45 +5,51 @@ const HeroSection = () => {
   return (
     <section 
       id="hero" 
-      className="relative w-full min-h-screen flex flex-col md:flex-row bg-[#000000] overflow-hidden"
+      className="bg-[#000000] min-h-screen w-full flex items-center pt-24 lg:pt-0 overflow-hidden"
     >
-      {/* Conteúdo da Esquerda (Texto) */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center px-6 py-20 md:px-12 lg:px-24 z-10 text-center md:text-left pt-32 md:pt-0">
-        <div className="max-w-2xl">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6 text-white uppercase leading-tight">
-            SENTE <span style={{ color: '#B4D600' }}>DORES</span> PELO <span style={{ color: '#B4D600' }}>CORPO</span>?
-          </h1>
-          <p className="text-gray-200 text-lg md:text-xl max-w-xl mb-10 leading-relaxed mx-auto md:mx-0">
-            Descubra como a terapia não convencional pode transformar a sua qualidade de vida, 
-            promovendo o equilíbrio e bem-estar que o seu corpo merece.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <Button 
-              size="lg" 
-              className="text-lg px-8 h-14 rounded-md bg-[#B4D600] hover:bg-[#B4D600]/90 text-black font-bold transition-all shadow-[0_0_20px_rgba(180,214,0,0.4)] hover:shadow-[0_0_30px_rgba(180,214,0,0.6)]" 
-              asChild
-            >
-              <a href="#agendar">Agendar Agora</a>
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg" 
-              className="text-lg px-8 h-14 rounded-md border-white bg-transparent text-white hover:bg-white/10 font-bold transition-all" 
-              asChild
-            >
-              <a href="#servicos">Nossos Serviços</a>
-            </Button>
+      <div className="container mx-auto px-8 md:px-12 lg:px-24 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          
+          {/* Coluna 1: Texto (50% no Desktop) */}
+          <div className="flex flex-col text-center lg:text-left order-1 z-10 py-8 lg:py-20">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7rem] font-black leading-[0.9] text-white mb-8 uppercase tracking-tighter">
+              SENTE <span className="text-[#B4D600]">DORES</span> <br className="hidden lg:block" />
+              PELO <span className="text-[#B4D600]">CORPO</span>?
+            </h1>
+            
+            <p className="text-white text-lg md:text-xl lg:text-2xl leading-relaxed mb-12 max-w-xl mx-auto lg:mx-0 font-medium">
+              Especialistas em terapia não convencional focada na eliminação da dor e recuperação total da sua mobilidade de forma rápida e segura.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <Button 
+                size="lg" 
+                className="bg-[#B4D600] hover:bg-[#B4D600]/90 text-black font-extrabold h-16 px-10 text-xl rounded-md transition-all shadow-[0_0_20px_rgba(180,214,0,0.4)]"
+                asChild
+              >
+                <a href="#agendar">AGENDAR CONSULTA</a>
+              </Button>
+              <Button 
+                variant="outline"
+                size="lg" 
+                className="border-white text-white hover:bg-white/10 font-extrabold h-16 px-10 text-xl rounded-md transition-all"
+                asChild
+              >
+                <a href="#servicos">VER SERVIÇOS</a>
+              </Button>
+            </div>
           </div>
+          
+          {/* Coluna 2: Imagem (Recorte limpo com tratamento) */}
+          <div className="flex justify-center items-end order-2 h-[35vh] sm:h-[40vh] lg:h-[85vh] w-full relative overflow-hidden">
+            <img
+              src={heroBanner}
+              alt="Terapeutas Profissionais"
+              className="w-full h-full object-contain object-bottom mix-blend-screen brightness-[1.1] contrast-[1.1]"
+            />
+          </div>
+          
         </div>
-      </div>
-
-      {/* Conteúdo da Direita (Imagem) */}
-      <div className="w-full md:w-1/2 flex items-center justify-center md:justify-end h-[450px] md:h-screen relative overflow-hidden bg-black">
-        <img
-          src={heroBanner}
-          alt="Terapeutas - Terapia não convencional"
-          className="w-full h-full object-contain object-bottom md:object-right-bottom mix-blend-screen"
-        />
       </div>
     </section>
   );
