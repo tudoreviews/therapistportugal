@@ -235,7 +235,7 @@ const BookingSection = () => {
             Entraremos em contacto consigo para confirmar os detalhes.
           </p>
           <a
-            href={`https://wa.me/351964195415?text=${encodeURIComponent(
+            href={`https://wa.me/351936342632?text=${encodeURIComponent(
               `Olá, acabei de agendar ${selectedTreatment?.name} para o dia ${selectedDate ? format(selectedDate, "d 'de' MMMM", { locale: pt }) : ""} às ${selectedTime}. O meu nome é ${nome}.`
             )}`}
             target="_blank"
