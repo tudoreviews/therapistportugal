@@ -49,6 +49,7 @@ const BookingSection = () => {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [telemovel, setTelemovel] = useState("");
+  const [paymentReference] = useState(() => Math.floor(100000000 + Math.random() * 900000000).toString().replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3"));
 
   const fetchBookedSlots = async (date: Date) => {
     const startOfDay = new Date(date);
