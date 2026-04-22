@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="border-t border-border py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-background">
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 mb-16">
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <div className="flex items-center gap-3 mb-6 group cursor-pointer">
               <img src={logo} alt="Unconventional Therapist" className="h-12 md:h-14 w-auto object-contain transition-transform group-hover:scale-105" />
@@ -67,6 +67,36 @@ const Footer = () => {
               24H EMERGÊNCIAS: +351 936 342 632
             </a>
             <p className="text-[10px] text-muted-foreground mt-3 uppercase tracking-widest font-bold opacity-60 italic">Valor sob consulta prévia</p>
+          </div>
+
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+            <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-foreground mb-8">Informação Legal</h4>
+            <div className="space-y-4 mb-8">
+              <Link to="/politica-privacidade" className="flex items-center justify-center md:justify-start gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group">
+                <ShieldCheck size={16} className="text-primary/70 group-hover:text-primary" />
+                Política de Privacidade
+              </Link>
+              <Link to="/termos-uso" className="flex items-center justify-center md:justify-start gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group">
+                <FileText size={16} className="text-primary/70 group-hover:text-primary" />
+                Termos de Uso
+              </Link>
+            </div>
+            
+            <a 
+              href="https://www.livroreclamacoes.pt" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="mt-2 group"
+            >
+              <div className="bg-white p-2 rounded-lg border border-border hover:border-primary/50 transition-all flex items-center gap-3">
+                <img 
+                  src="https://www.livroreclamacoes.pt/assets/img/logo-livro-reclamacoes.png" 
+                  alt="Livro de Reclamações Eletrónico" 
+                  className="h-8 md:h-10 w-auto grayscale group-hover:grayscale-0 transition-all"
+                />
+                <ExternalLink size={14} className="text-muted-foreground group-hover:text-primary" />
+              </div>
+            </a>
           </div>
         </div>
 
