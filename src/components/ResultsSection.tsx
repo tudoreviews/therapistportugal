@@ -35,7 +35,7 @@ const cases = [
 
 const ResultsSection = () => {
   return (
-    <section id="resultados" className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-card/30">
+    <section id="resultados" className="py-12 md:py-24 px-6 md:px-8 bg-card/30">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12 md:mb-16">
           <p className="text-primary text-xs md:text-sm font-medium tracking-[0.2em] uppercase mb-3">
