@@ -133,6 +133,10 @@ const Appointments = () => {
             <h1 className="text-3xl font-bold">Agendamentos</h1>
             <p className="text-muted-foreground">Gerir todas as marcações da clínica.</p>
           </div>
+          <Button onClick={exportToCSV} variant="outline" className="flex items-center gap-2">
+            <Download size={18} />
+            Exportar para CSV
+          </Button>
         </div>
 
         {/* Filters */}
