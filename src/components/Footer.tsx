@@ -86,16 +86,14 @@ const Footer = () => {
               href="https://www.livroreclamacoes.pt" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="mt-2 group"
+              className="mt-2 inline-block transition-transform hover:scale-105"
+              title="Livro de Reclamações Eletrónico"
             >
-              <div className="bg-white p-2 rounded-lg border border-border hover:border-primary/50 transition-all flex items-center gap-3">
-                <img 
-                  src="https://www.livroreclamacoes.pt/assets/img/logo-livro-reclamacoes.png" 
-                  alt="Livro de Reclamações Eletrónico" 
-                  className="h-8 md:h-10 w-auto grayscale group-hover:grayscale-0 transition-all"
-                />
-                <ExternalLink size={14} className="text-muted-foreground group-hover:text-primary" />
-              </div>
+              <img 
+                src="https://www.livroreclamacoes.pt/assets/img/logo-livro-reclamacoes.png" 
+                alt="Livro de Reclamações Eletrónico" 
+                className="h-14 md:h-16 w-auto"
+              />
             </a>
           </div>
         </div>
