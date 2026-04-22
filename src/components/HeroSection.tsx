@@ -6,8 +6,8 @@ const HeroSection = () => {
       id="hero" 
       className="bg-black min-h-screen w-full flex items-center pt-24 lg:pt-0 overflow-hidden"
     >
-      <div className="container mx-auto px-[20px] md:px-12 lg:px-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div className="max-w-7xl mx-auto px-[20px] md:px-12 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
           {/* Lado Esquerdo: Texto */}
           <div className="flex flex-col text-left order-1 z-10">
@@ -39,11 +39,11 @@ const HeroSection = () => {
           </div>
           
           {/* Lado Direito: Imagem */}
-          <div className="flex justify-center items-center order-2 lg:h-[85vh] w-full">
+          <div className="flex justify-center lg:justify-end items-center order-2 w-full">
             <img
               src="/foto_nuno_santosterapia.png"
               alt="Nuno Santos Terapia"
-              className="w-full h-full object-contain mix-blend-multiply filter brightness-110"
+              className="w-[90%] lg:w-full h-auto object-contain mix-blend-multiply filter brightness-110"
             />
           </div>
           
