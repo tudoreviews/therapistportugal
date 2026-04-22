@@ -32,7 +32,7 @@ const Navbar = () => {
           }}
           className="flex items-center shrink-0 hover:opacity-80 transition-opacity"
         >
-          <img src={logo} alt="Unconventional Therapist" className="h-10 sm:h-12 md:h-16 w-auto object-contain" />
+          <img src={logo} alt="Unconventional Therapist" className="h-8 sm:h-12 md:h-16 w-auto object-contain" />
         </Link>
 
         <div className="hidden md:flex items-center gap-8 lg:gap-14">

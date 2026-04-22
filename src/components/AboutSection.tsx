@@ -25,7 +25,7 @@ const AboutSection = () => {
     "https://wa.me/351936342632?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20seus%20servi%C3%A7os.";
 
   return (
-    <section id="sobre" className="py-16 md:py-24 px-4 sm:px-6 lg:px-8" ref={sectionRef}>
+    <section id="sobre" className="py-12 md:py-24 px-6 md:px-8" ref={sectionRef}>
       <div
         className={`max-w-6xl mx-auto transition-all duration-700 ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
