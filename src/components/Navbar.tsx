@@ -20,7 +20,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border transition-all duration-300">
+    <nav className={cn(
+      "fixed top-0 left-0 right-0 z-50 border-b border-border transition-all duration-300",
+      isOpen ? "bg-background" : "bg-background/90 backdrop-blur-md"
+    )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 h-20 md:h-24 flex items-center justify-between">
         <Link 
           to="/"
