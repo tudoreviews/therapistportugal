@@ -62,7 +62,7 @@ const ServicesSection = () => {
                 {benefits.map((benefit, index) => (
                   <li key={index} className="flex items-center gap-3 md:gap-4 group">
                     <div className="flex-shrink-0 w-7 h-7 md:w-8 md:h-8 rounded-lg md:rounded-xl bg-lime-500/10 flex items-center justify-center group-hover:bg-lime-500/20 transition-colors">
-                      <Check className="text-lime-500" size={16} md:size={18} strokeWidth={3} />
+                      <Check className="text-lime-500 w-4 h-4 md:w-[18px] md:h-[18px]" strokeWidth={3} />
                     </div>
                     <span className="text-foreground/90 font-semibold text-base md:text-lg">{benefit}</span>
                   </li>
@@ -82,7 +82,7 @@ const ServicesSection = () => {
                   </span>
                 </div>
                 <div className="w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-primary/10 flex items-center justify-center mb-6 md:mb-8 group-hover:scale-110 transition-transform duration-500">
-                  <service.icon className="text-primary" size={28} md:size={32} />
+                  <service.icon className="text-primary w-7 h-7 md:w-8 md:h-8" />
                 </div>
                 <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4 tracking-tight">{service.title}</h3>
                 <p className="text-muted-foreground leading-relaxed mb-6 md:mb-8 flex-grow text-base md:text-lg italic opacity-80">{service.description}</p>
@@ -112,7 +112,7 @@ const ServicesSection = () => {
           <Button size="lg" className="w-full sm:w-auto rounded-full text-base md:text-xl px-8 md:px-12 h-14 md:h-16 shadow-xl shadow-primary/20 hover:shadow-primary/40 md:hover:scale-105 transition-all duration-300 font-bold" asChild>
             <a href="#agendar">
               Agendar Reunião de Diagnóstico
-              <ArrowRight className="ml-2 md:ml-3 group-hover:translate-x-1 transition-transform" size={20} md:size={24} />
+              <ArrowRight className="ml-2 md:ml-3 group-hover:translate-x-1 transition-transform w-5 h-5 md:w-6 md:h-6" />
             </a>
           </Button>
         </div>

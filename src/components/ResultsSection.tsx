@@ -35,13 +35,13 @@ const cases = [
 
 const ResultsSection = () => {
   return (
-    <section id="resultados" className="py-24 px-6 bg-card/30">
+    <section id="resultados" className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-card/30">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <p className="text-primary text-sm font-medium tracking-[0.2em] uppercase mb-3">
+        <div className="text-center mb-12 md:mb-16">
+          <p className="text-primary text-xs md:text-sm font-medium tracking-[0.2em] uppercase mb-3">
             Resultados Reais
           </p>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+          <h2 className="text-[clamp(2rem,5vw,3rem)] font-bold tracking-tight mb-4">
             Antes & Depois
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
@@ -50,15 +50,15 @@ const ResultsSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {cases.map((c) => (
             <Card
               key={c.title}
-              className="bg-card border-border/60 overflow-hidden hover:border-primary/40 transition-colors duration-300"
+              className="bg-card border-border/60 overflow-hidden hover:border-primary/40 transition-colors duration-300 rounded-2xl md:rounded-3xl"
             >
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 p-1">
+              <div className="flex flex-col sm:grid sm:grid-cols-2 gap-1 p-1">
                 {/* Antes */}
-                <div className="relative aspect-[3/4] overflow-hidden rounded-md">
+                <div className="relative aspect-[4/3] sm:aspect-[3/4] overflow-hidden rounded-t-xl sm:rounded-l-xl sm:rounded-tr-none">
                   <img
                     src={c.before}
                     alt={`${c.title} - Antes do tratamento`}
@@ -70,7 +70,7 @@ const ResultsSection = () => {
                   </span>
                 </div>
                 {/* Depois */}
-                <div className="relative aspect-[3/4] overflow-hidden rounded-md">
+                <div className="relative aspect-[4/3] sm:aspect-[3/4] overflow-hidden rounded-b-xl sm:rounded-r-xl sm:rounded-bl-none">
                   <img
                     src={c.after}
                     alt={`${c.title} - Depois do tratamento`}
@@ -84,8 +84,8 @@ const ResultsSection = () => {
               </div>
 
               <CardContent className="p-6">
-                <h3 className="text-xl font-bold mb-1">{c.title}</h3>
-                <p className="text-primary text-sm font-medium mb-3">{c.subtitle}</p>
+                <h3 className="text-lg md:text-xl font-bold mb-1">{c.title}</h3>
+                <p className="text-primary text-xs md:text-sm font-medium mb-3">{c.subtitle}</p>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {c.description}
                 </p>
