@@ -109,7 +109,7 @@ const ServicesSection = () => {
           <h3 className="text-xl md:text-3xl lg:text-4xl font-bold mb-8 md:mb-10 max-w-4xl mx-auto leading-tight">
             Gostaria de agendar uma breve reunião para apresentar uma proposta adaptada à vossa realidade e objetivos estratégicos.
           </h3>
-          <Button size="lg" className="w-full sm:w-auto rounded-full text-base md:text-xl px-8 md:px-12 h-14 md:h-16 shadow-xl shadow-primary/20 hover:shadow-primary/40 md:hover:scale-105 transition-all duration-300 font-bold" asChild>
+          <Button size="default" className="w-full sm:w-auto rounded-full text-base px-8 h-12 shadow-xl shadow-primary/20 hover:shadow-primary/40 md:hover:scale-105 transition-all duration-300 font-bold" asChild>
             <a href="#agendar">
               Agendar Reunião de Diagnóstico
               <ArrowRight className="ml-2 md:ml-3 group-hover:translate-x-1 transition-transform w-5 h-5 md:w-6 md:h-6" />
