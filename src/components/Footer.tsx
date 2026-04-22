@@ -3,59 +3,74 @@ import logo from "@/assets/logo.png";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border py-16 px-6">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
-          <div>
-            <div className="flex items-center gap-3 mb-4">
-              <img src={logo} alt="Unconventional Therapist" className="h-12 w-auto object-contain" />
-              <h3 className="font-bold text-lg" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+    <footer className="border-t border-border py-12 md:py-20 px-4 sm:px-6 lg:px-8 bg-background">
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 mb-16">
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+            <div className="flex items-center gap-3 mb-6 group cursor-pointer">
+              <img src={logo} alt="Unconventional Therapist" className="h-12 md:h-14 w-auto object-contain transition-transform group-hover:scale-105" />
+              <h3 className="font-bold text-xl md:text-2xl tracking-tight">
                 <span className="text-primary">U</span>nconventional <span className="text-primary">T</span>herapist
               </h3>
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Terapias inovadoras e personalizadas para transformar a sua saúde e bem-estar.
+            <p className="text-base text-muted-foreground leading-relaxed max-w-sm">
+              Terapias inovadoras e personalizadas para transformar a sua saúde e bem-estar integral.
             </p>
           </div>
 
-          <div>
-            <h4 className="font-semibold text-sm uppercase tracking-wider mb-4">Contactos</h4>
-            <div className="space-y-3">
-              <a href="mailto:info@unconventionaltherapist.pt" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                <Mail size={16} className="text-primary" />
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+            <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-foreground mb-8">Contactos</h4>
+            <div className="space-y-5">
+              <a href="mailto:info@unconventionaltherapist.pt" className="flex items-center justify-center md:justify-start gap-4 text-base text-muted-foreground hover:text-primary transition-all group">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Mail size={18} className="text-primary" />
+                </div>
                 info@unconventionaltherapist.pt
               </a>
-              <a href="tel:+351900000000" className="flex items-center gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                <Phone size={16} className="text-primary" />
+              <a href="tel:+351900000000" className="flex items-center justify-center md:justify-start gap-4 text-base text-muted-foreground hover:text-primary transition-all group">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Phone size={18} className="text-primary" />
+                </div>
                 +351 900 000 000
               </a>
-              <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                <MapPin size={16} className="text-primary shrink-0" />
+              <div className="flex items-center justify-center md:justify-start gap-4 text-base text-muted-foreground group">
+                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <MapPin size={18} className="text-primary shrink-0" />
+                </div>
                 Lisboa, Portugal
               </div>
             </div>
           </div>
 
-          <div>
-            <h4 className="font-semibold text-sm uppercase tracking-wider mb-4">Horário</h4>
-            <div className="space-y-2 text-sm text-muted-foreground mb-5">
-              <p>Segunda a Sexta: 09:00 — 19:00</p>
-              <p>Sábado: 09:00 — 13:00</p>
-              <p>Domingo: Encerrado</p>
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+            <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-foreground mb-8">Horário</h4>
+            <div className="space-y-3 text-base text-muted-foreground mb-8">
+              <p className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                Segunda a Sexta: 09:00 — 19:00
+              </p>
+              <p className="flex items-center gap-3">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                Sábado: 09:00 — 13:00
+              </p>
+              <p className="flex items-center gap-3 opacity-60">
+                <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
+                Domingo: Encerrado
+              </p>
             </div>
             <a
               href="tel:+351936342632"
-              className="inline-block bg-primary text-primary-foreground rounded-lg px-3 py-2 font-bold text-xs leading-tight hover:brightness-110 transition"
+              className="group inline-flex items-center gap-3 bg-destructive text-destructive-foreground rounded-2xl px-6 py-4 font-black text-sm tracking-wide hover:scale-105 active:scale-95 transition-all shadow-xl shadow-destructive/20"
             >
-              24H EMERGÊNCIAS:{" "}
-              <span className="underline underline-offset-2">+351 936 342 632</span>
+              <div className="w-2 h-2 rounded-full bg-white animate-pulse" />
+              24H EMERGÊNCIAS: +351 936 342 632
             </a>
-            <p className="text-[11px] text-muted-foreground mt-2">(valor sob consulta)</p>
+            <p className="text-[10px] text-muted-foreground mt-3 uppercase tracking-widest font-bold opacity-60 italic">Valor sob consulta prévia</p>
           </div>
         </div>
 
-        <div className="border-t border-border pt-8 text-center">
-          <p className="text-xs text-muted-foreground">
+        <div className="border-t border-border pt-10 text-center">
+          <p className="text-xs text-muted-foreground font-medium uppercase tracking-widest">
             © {new Date().getFullYear()} Unconventional Therapist. Todos os direitos reservados.
           </p>
         </div>
