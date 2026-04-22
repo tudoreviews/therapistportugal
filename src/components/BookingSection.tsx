@@ -267,9 +267,14 @@ const BookingSection = () => {
               </div>
             </div>
             
-            <p className="text-[11px] text-muted-foreground mt-6 text-center italic bg-white/50 py-2 rounded-lg border border-border/50">
-              O agendamento será validado após a receção do comprovativo.
-            </p>
+            <div className="mt-6 text-center bg-white/50 py-3 px-4 rounded-lg border border-border/50 space-y-1">
+              <p className="text-[11px] text-muted-foreground italic">
+                O agendamento será validado após a receção do comprovativo.
+              </p>
+              <p className="text-[11px] font-bold text-muted-foreground">
+                Após boa cobrança não existem devoluções
+              </p>
+            </div>
           </div>
 
           <div className="space-y-3">
