@@ -35,7 +35,7 @@ const benefits = [
 
 const ServicesSection = () => {
   return (
-    <section id="servicos" className="pt-8 md:pt-16 pb-12 md:pb-24 px-6 md:px-8 bg-background text-foreground relative overflow-hidden">
+    <section id="servicos" className="pt-0 md:pt-4 pb-12 md:pb-24 px-6 md:px-8 bg-background text-foreground relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-72 md:w-96 h-72 md:h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-72 md:w-96 h-72 md:h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
