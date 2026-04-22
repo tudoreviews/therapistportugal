@@ -187,6 +187,50 @@ const BookingSection = () => {
               <span className="text-sm font-bold text-primary">{selectedTreatment?.price} €</span>
             </div>
           </div>
+          <div className="bg-card border border-border rounded-xl p-6 text-left mb-8">
+            <h3 className="text-lg font-bold mb-4">Pagamento do Serviço</h3>
+            
+            <div className="space-y-6">
+              {/* MB WAY */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-[#ed1c24] rounded-lg flex items-center justify-center text-white font-black text-[10px] leading-none px-1 text-center">
+                    MB<br/>WAY
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold">MB WAY</p>
+                    <p className="text-xs text-muted-foreground">Telemóvel: 936 342 632</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Multibanco */}
+              <div className="space-y-3 pt-4 border-t border-border">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 bg-[#005ca9] rounded-lg flex items-center justify-center text-white font-black text-[8px] leading-tight text-center">
+                    MULTI<br/>BANCO
+                  </div>
+                  <p className="text-sm font-semibold">Multibanco</p>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-y-2 text-sm">
+                  <span className="text-muted-foreground">Entidade:</span>
+                  <span className="font-mono font-medium">21800</span>
+                  
+                  <span className="text-muted-foreground">Referência:</span>
+                  <span className="font-mono font-medium">123 456 789</span>
+                  
+                  <span className="text-muted-foreground">Montante:</span>
+                  <span className="font-bold text-primary">{selectedTreatment?.price} €</span>
+                </div>
+              </div>
+            </div>
+            
+            <p className="text-[11px] text-muted-foreground mt-6 text-center italic">
+              Por favor, envie o comprovativo após o pagamento.
+            </p>
+          </div>
+
           <p className="text-muted-foreground text-sm mb-6">
             Entraremos em contacto consigo para confirmar os detalhes.
           </p>
