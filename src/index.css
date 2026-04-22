@@ -61,6 +61,9 @@
   p {
     @apply text-white leading-[1.6] md:leading-[1.8] text-justify;
     hyphens: auto;
+    -webkit-hyphens: auto;
+    word-break: break-word;
+    text-justify: auto;
   }
 
   h1, h2, h3, h4, h5, h6 {
