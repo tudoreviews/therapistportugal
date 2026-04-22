@@ -43,7 +43,7 @@ const HeroSection = () => {
             <img
               src="/foto_nuno_santosterapia.png"
               alt="Nuno Santos Terapia"
-              className="w-full lg:w-auto max-h-[800px] lg:max-h-[1200px] object-contain brightness-110 origin-bottom transform scale-[2] lg:scale-[2]"
+              className="w-full lg:w-auto max-h-[400px] lg:max-h-[600px] object-contain brightness-110 origin-bottom transform scale-[2]"
               style={{
                 maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
                 WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)'
