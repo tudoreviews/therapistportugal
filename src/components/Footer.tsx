@@ -1,4 +1,5 @@
-import { Instagram, Phone, MapPin } from "lucide-react";
+import { Instagram, Phone, MapPin, ShieldCheck, FileText, ExternalLink } from "lucide-react";
+import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
 
 const Footer = () => {
