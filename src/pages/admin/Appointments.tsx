@@ -133,14 +133,16 @@ const Appointments = () => {
             <h1 className="text-3xl font-bold">Agendamentos</h1>
             <p className="text-muted-foreground">Gerir todas as marcações da clínica.</p>
           </div>
-          <Button onClick={exportToCSV} variant="outline" className="flex items-center gap-2">
-            <Download size={18} />
-            Exportar para CSV
-          </Button>
+          <div className="flex gap-2">
+            <Button onClick={exportToCSV} variant="outline" className="flex items-center gap-2">
+              <Download size={18} />
+              Exportar para Excel (CSV)
+            </Button>
+          </div>
         </div>
 
         {/* Filters */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 bg-card p-4 rounded-xl border border-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-card p-4 rounded-xl border border-border">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
             <Input 
@@ -161,6 +163,10 @@ const Appointments = () => {
           </div>
           <Button variant="secondary" onClick={() => { setNameFilter(""); setDateFilter(""); }}>
             Limpar Filtros
+          </Button>
+          <Button onClick={exportToCSV} variant="outline" className="flex items-center gap-2 md:hidden lg:flex">
+            <Download size={18} />
+            Exportar Lista
           </Button>
         </div>
 
