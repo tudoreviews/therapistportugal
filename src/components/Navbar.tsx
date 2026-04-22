@@ -63,7 +63,7 @@ const Navbar = () => {
           <Button 
             onClick={() => scrollTo("agendar")} 
             size="default" 
-            className="w-full text-lg h-12 mt-4"
+            className="w-full text-lg h-10 mt-4"
           >
             Agendar Consulta
           </Button>
