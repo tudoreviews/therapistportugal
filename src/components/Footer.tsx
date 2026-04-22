@@ -98,7 +98,10 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="border-t border-border pt-10 text-center">
+        <div className="border-t border-border pt-10 text-center space-y-4">
+          <p className="text-xs text-muted-foreground leading-relaxed max-w-2xl mx-auto italic">
+            Em caso de litígio, o consumidor pode recorrer a uma Entidade de Resolução Alternativa de Litígios de Consumo (ex: CNIACC - Centro Nacional de Informação e Arbitragem de Conflitos de Consumo).
+          </p>
           <p className="text-xs text-muted-foreground font-medium uppercase tracking-widest">
             © {new Date().getFullYear()} Unconventional Therapist. Todos os direitos reservados.
           </p>
