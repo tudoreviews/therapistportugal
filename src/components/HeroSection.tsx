@@ -39,14 +39,14 @@ const HeroSection = () => {
           </div>
           
           {/* Lado Direito: Imagem */}
-          <div className="flex justify-center lg:justify-end items-end order-2 w-full lg:h-full lg:relative">
+          <div className="flex justify-center lg:justify-end items-end order-2 w-full">
             <img
               src="/foto_nuno_santosterapia.png"
               alt="Nuno Santos Terapia"
-              className="w-full lg:w-auto lg:h-[150%] object-contain brightness-110 lg:absolute lg:bottom-0 lg:right-0 lg:-translate-x-10"
+              className="w-full lg:w-auto max-h-[400px] lg:max-h-[600px] object-contain brightness-110"
               style={{
-                maskImage: 'linear-gradient(to bottom, black 70%, transparent 98%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 98%)'
+                maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)'
               }}
             />
           </div>
