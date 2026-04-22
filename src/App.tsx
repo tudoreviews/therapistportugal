@@ -13,7 +13,7 @@ import Login from "./pages/admin/Login.tsx";
 import Dashboard from "./pages/admin/Dashboard.tsx";
 import Appointments from "./pages/admin/Appointments.tsx";
 import Patients from "./pages/admin/Patients.tsx";
-import Settings from "./pages/admin/Settings.tsx";
+
 import ProtectedRoute from "./components/admin/ProtectedRoute.tsx";
 
 const queryClient = new QueryClient();
@@ -54,14 +54,6 @@ const App = () => (
             element={
               <ProtectedRoute>
                 <Patients />
-              </ProtectedRoute>
-            } 
-          />
-          <Route 
-            path="/admin/settings" 
-            element={
-              <ProtectedRoute>
-                <Settings />
               </ProtectedRoute>
             } 
           />
