@@ -71,7 +71,7 @@ const Footer = () => {
 
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-foreground mb-8">Informação Legal</h4>
-            <div className="space-y-4 mb-8">
+            <div className="space-y-4">
               <Link to="/politica-privacidade" className="flex items-center justify-center md:justify-start gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group">
                 <ShieldCheck size={16} className="text-primary/70 group-hover:text-primary" />
                 Política de Privacidade
@@ -80,21 +80,16 @@ const Footer = () => {
                 <FileText size={16} className="text-primary/70 group-hover:text-primary" />
                 Termos de Uso
               </Link>
+              <a 
+                href="https://www.livroreclamacoes.pt" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center justify-center md:justify-start gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group"
+              >
+                <ExternalLink size={16} className="text-primary/70 group-hover:text-primary" />
+                Livro de Reclamações
+              </a>
             </div>
-            
-            <a 
-              href="https://www.livroreclamacoes.pt" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="mt-2 inline-block transition-transform hover:scale-105"
-              title="Livro de Reclamações Eletrónico"
-            >
-              <img 
-                src="https://www.livroreclamacoes.pt/assets/img/logo-livro-reclamacoes.png" 
-                alt="Livro de Reclamações Eletrónico" 
-                className="h-14 md:h-16 w-auto"
-              />
-            </a>
           </div>
         </div>
 
