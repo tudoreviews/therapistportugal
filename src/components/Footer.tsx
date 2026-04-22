@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16 mb-16">
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <div className="flex items-center gap-3 mb-6 group cursor-pointer">
-              <img src={logo} alt="Unconventional Therapist" className="h-12 md:h-14 w-auto object-contain transition-transform group-hover:scale-105" />
+              <img src={logo} alt="Unconventional Therapist" className="h-16 md:h-18 w-auto object-contain transition-transform group-hover:scale-105" />
               <h3 className="font-bold text-xl md:text-2xl tracking-tight">
                 <span className="text-primary">U</span>nconventional <span className="text-primary">T</span>herapist
               </h3>
