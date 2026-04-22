@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Calendar as CalendarIcon, Trash2 } from "lucide-react";
+import { Search, Calendar as CalendarIcon, Trash2, Download } from "lucide-react";
 import { format } from "date-fns";
 import { pt } from "date-fns/locale";
 import { toast } from "sonner";
@@ -91,6 +91,38 @@ const Appointments = () => {
       case "Cancelado": return "text-destructive";
       default: return "";
     }
+  };
+
+  const exportToCSV = () => {
+    if (!filteredAppointments || filteredAppointments.length === 0) {
+      toast.error("Não há dados para exportar");
+      return;
+    }
+
+    const headers = ["Data/Hora", "Nome", "Email", "Telefone", "Servico", "Mensagem", "Estado"];
+    const csvContent = [
+      headers.join(","),
+      ...filteredAppointments.map(app => [
+        `"${format(new Date(app.data_hora), "dd/MM/yyyy HH:mm")}"`,
+        `"${app.nome}"`,
+        `"${app.email}"`,
+        `"${app.telefone || ""}"`,
+        `"${app.servico}"`,
+        `"${(app.mensagem || "").replace(/"/g, '""')}"`,
+        `"${app.status || "Pendente"}"`
+      ].join(","))
+    ].join("\n");
+
+    const blob = new Blob(["\ufeff" + csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `agendamentos_${format(new Date(), "yyyy-MM-dd")}.csv`);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success("CSV exportado com sucesso!");
   };
 
   return (
