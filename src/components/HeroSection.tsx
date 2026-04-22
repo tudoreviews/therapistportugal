@@ -1,54 +1,38 @@
-import { useState } from "react";
-import heroBanner from "@/assets/hero-banner.png";
 import { Button } from "@/components/ui/button";
+import heroBanner from "@/assets/hero-banner.png";
 
 const HeroSection = () => {
-  const [loaded, setLoaded] = useState(false);
-
   return (
-    <section id="hero" className="relative w-full pt-28 md:pt-32 pb-12 md:pb-20 bg-background overflow-hidden px-6">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12 md:gap-8">
-        {/* Text Content */}
-        <div className="flex-1 text-center md:text-left z-10">
-          <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1.1] mb-6">
+    <section id="hero" className="relative w-full min-h-screen flex flex-col md:flex-row bg-[#000000] overflow-hidden">
+      {/* Text Content */}
+      <div className="flex-1 flex flex-col justify-center px-6 py-12 md:px-12 lg:px-24 z-10 text-center md:text-left pt-32 md:pt-0">
+        <div className="max-w-2xl">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-black tracking-tighter leading-[1] mb-8 text-white uppercase italic">
             SENTE DORES <br className="hidden sm:block" />
-            <span className="text-primary">PELO CORPO?</span>
+            <span className="text-primary not-italic">PELO CORPO?</span>
           </h1>
-          <p className="text-muted-foreground text-lg md:text-xl max-w-xl mb-8 leading-relaxed">
-            Descubra como a terapia não convencional pode ajudar a sua vida, 
-            promovendo equilíbrio e bem-estar integral.
+          <p className="text-gray-400 text-lg md:text-xl max-w-xl mb-10 leading-relaxed mx-auto md:mx-0 font-medium">
+            Descubra como a terapia não convencional pode transformar a sua qualidade de vida, 
+            promovendo o equilíbrio e bem-estar que o seu corpo merece.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <Button size="lg" className="text-lg px-8 h-14 rounded-xl shadow-xl shadow-primary/20" asChild>
+          <div className="flex flex-col sm:flex-row gap-5 justify-center md:justify-start">
+            <Button size="lg" className="text-lg px-10 h-16 rounded-full shadow-2xl shadow-primary/30 bg-primary hover:bg-primary/90 text-primary-foreground font-bold transition-transform hover:scale-105" asChild>
               <a href="#agendar">Agendar Agora</a>
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8 h-14 rounded-xl border-primary/20" asChild>
+            <Button variant="outline" size="lg" className="text-lg px-10 h-16 rounded-full border-white/20 text-white hover:bg-white/10 font-bold transition-all" asChild>
               <a href="#servicos">Nossos Serviços</a>
             </Button>
           </div>
         </div>
+      </div>
 
-        {/* Image Content */}
-        <div className="flex-1 relative flex justify-center items-center w-full max-w-[300px] md:max-w-none mx-auto">
-          <div className="relative w-full aspect-square md:aspect-auto md:h-[600px] flex items-center justify-center">
-            {/* Circular frame for image */}
-            <div className={`relative w-64 h-64 sm:w-80 sm:h-80 md:w-[500px] md:h-[500px] rounded-full overflow-hidden border-4 border-primary/20 shadow-2xl transition-all duration-1000 ${
-              loaded ? "opacity-100 scale-100" : "opacity-0 scale-95"
-            }`}>
-              <img
-                src={heroBanner}
-                alt="Dr. Nuno Santos - Terapia não convencional"
-                onLoad={() => setLoaded(true)}
-                className="w-full h-full object-cover object-center"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
-            </div>
-            
-            {/* Decorative elements */}
-            <div className="absolute -z-10 w-full h-full bg-primary/10 blur-[120px] rounded-full" />
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 -z-10 w-[120%] h-[120%] border border-primary/10 rounded-full animate-[pulse_8s_infinite]" />
-          </div>
-        </div>
+      {/* Image Content */}
+      <div className="w-full md:w-1/2 h-[400px] md:h-screen relative overflow-hidden">
+        <img
+          src={heroBanner}
+          alt="Dr. Nuno Santos - Terapia não convencional"
+          className="w-full h-full object-cover transition-all duration-700"
+        />
       </div>
     </section>
   );
