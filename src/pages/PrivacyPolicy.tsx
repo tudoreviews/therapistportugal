@@ -8,52 +8,78 @@ const PrivacyPolicy = () => {
       <main className="max-w-4xl mx-auto px-6 py-24 md:py-32">
         <h1 className="text-3xl md:text-5xl font-bold mb-8">Política de Privacidade</h1>
         
-        <div className="prose prose-invert max-w-none space-y-6 text-muted-foreground">
+        <div className="prose prose-invert max-w-none space-y-8 text-muted-foreground">
+          <p>
+            A presente Política de Privacidade descreve a forma como os dados pessoais dos utilizadores são recolhidos, utilizados e protegidos no âmbito dos serviços prestados por Unconventional Therapist.
+          </p>
+
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-4">1. Introdução</h2>
+            <h2 className="text-xl font-bold text-foreground mb-4">1. Responsável pelo Tratamento de Dados</h2>
             <p>
-              A sua privacidade é importante para nós. É política do Unconventional Therapist respeitar a sua privacidade em relação a qualquer informação sua que possamos coletar no site Unconventional Therapist, e outros sites que possuímos e operamos.
+              O responsável pelo tratamento dos dados pessoais é Nuno Santos, em representação da marca Unconventional Therapist.
             </p>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-4">2. Coleta de Dados</h2>
-            <p>
-              Solicitamos informações pessoais apenas quando realmente precisamos delas para lhe fornecer um serviço. Fazemo-lo por meios justos e legais, com o seu conhecimento e consentimento. Também informamos por que estamos coletando e como será usado.
-            </p>
-            <p>
-              Apenas retemos as informações coletadas pelo tempo necessário para fornecer o serviço solicitado. Quando armazenamos dados, protegemo-los dentro de meios comercialmente aceitáveis ​​para evitar perdas e roubos, bem como acesso, divulgação, cópia, uso ou modificação não autorizados.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-bold text-foreground mb-4">3. Uso de Informações</h2>
-            <p>
-              Não compartilhamos informações de identificação pessoal publicamente ou com terceiros, exceto quando exigido por lei.
-            </p>
-            <p>
-              O nosso site pode ter links para sites externos que não são operados por nós. Esteja ciente de que não temos controle sobre o conteúdo e práticas desses sites e não podemos aceitar responsabilidade por suas respectivas políticas de privacidade.
-            </p>
-          </section>
-
-          <section>
-            <h2 className="text-xl font-bold text-foreground mb-4">4. Compromisso do Usuário</h2>
-            <p>
-              O usuário se compromete a fazer uso adequado dos conteúdos e da informação que o Unconventional Therapist oferece no site e com caráter enunciativo, mas não limitativo:
-            </p>
+            <h2 className="text-xl font-bold text-foreground mb-4">2. Dados Recolhidos</h2>
+            <p>No âmbito da utilização dos nossos serviços, poderão ser recolhidos os seguintes dados pessoais:</p>
             <ul className="list-disc pl-6 space-y-2">
-              <li>Não se envolver em atividades que sejam ilegais ou contrárias à boa fé a à ordem pública;</li>
-              <li>Não difundir propaganda ou conteúdo de natureza racista, xenofóbica, ou azar, qualquer tipo de pornografia ilegal, de apologia ao terrorismo ou contra os direitos humanos;</li>
-              <li>Não causar danos aos sistemas físicos (hardwares) e lógicos (softwares) do Unconventional Therapist, de seus fornecedores ou terceiros.</li>
+              <li>Nome</li>
+              <li>Número de telemóvel</li>
+              <li>Endereço de e-mail</li>
+              <li>Detalhes relacionados com o serviço agendado</li>
             </ul>
           </section>
 
           <section>
-            <h2 className="text-xl font-bold text-foreground mb-4">5. Mais informações</h2>
+            <h2 className="text-xl font-bold text-foreground mb-4">3. Finalidade do Tratamento</h2>
+            <p>Os dados pessoais recolhidos destinam-se exclusivamente a:</p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Gestão de agendamentos</li>
+              <li>Envio de confirmações e comunicações via WhatsApp</li>
+              <li>Processamento de faturação</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold text-foreground mb-4">4. Base Legal</h2>
             <p>
-              Esperemos que esteja esclarecido e, como mencionado anteriormente, se houver algo que você não tem certeza se precisa ou não, geralmente é mais seguro deixar os cookies ativados, caso interaja com um dos recursos que você usa em nosso site.
+              O tratamento dos dados pessoais tem como fundamento o consentimento do utilizador, manifestado através do preenchimento do formulário de marcação.
             </p>
-            <p>Esta política é efetiva a partir de Janeiro de 2024.</p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold text-foreground mb-4">5. Conservação dos Dados</h2>
+            <p>
+              Os dados pessoais serão conservados apenas durante o período necessário para a prestação do serviço, bem como pelo tempo exigido por obrigações legais, nomeadamente para efeitos de faturação.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold text-foreground mb-4">6. Partilha de Dados</h2>
+            <p>
+              Os dados recolhidos são armazenados de forma segura através de plataformas como Supabase e Google Sheets, sendo igualmente processados com recurso à ferramenta Make.com para envio de comunicações.
+            </p>
+            <p>
+              Os dados não são vendidos nem partilhados com terceiros para fins publicitários ou comerciais.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-xl font-bold text-foreground mb-4">7. Direitos do Utilizador</h2>
+            <p>
+              Nos termos da legislação em vigor, nomeadamente o Regulamento Geral sobre a Proteção de Dados (RGPD), o utilizador tem o direito de:
+            </p>
+            <ul className="list-disc pl-6 space-y-2">
+              <li>Aceder aos seus dados pessoais</li>
+              <li>Solicitar a sua retificação</li>
+              <li>Solicitar a sua eliminação</li>
+            </ul>
+            <p className="mt-4">
+              Para exercer qualquer um destes direitos, poderá contactar através do número:
+              <br />
+              <a href="tel:+351936342632" className="text-primary hover:underline font-medium">+351 936 342 632</a>
+            </p>
           </section>
         </div>
       </main>
