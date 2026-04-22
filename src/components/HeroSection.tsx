@@ -7,7 +7,7 @@ const HeroSection = () => {
       className="bg-black min-h-screen w-full flex items-center pt-24 lg:pt-0 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-[20px] md:px-12 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center relative">
           
           {/* Lado Esquerdo: Texto */}
           <div className="flex flex-col text-left order-1 z-10">
@@ -39,11 +39,11 @@ const HeroSection = () => {
           </div>
           
           {/* Lado Direito: Imagem */}
-          <div className="flex justify-center lg:justify-end items-center order-2 w-full self-end lg:h-full">
+          <div className="flex justify-center lg:justify-end items-end order-2 w-full lg:h-full lg:relative">
             <img
               src="/foto_nuno_santosterapia.png"
               alt="Nuno Santos Terapia"
-              className="w-full lg:w-auto lg:h-[90%] object-contain brightness-110"
+              className="w-full lg:w-auto lg:h-[250%] object-contain brightness-110 lg:absolute lg:bottom-0 lg:right-0 lg:-translate-x-40 lg:translate-y-32"
               style={{
                 maskImage: 'linear-gradient(to bottom, black 70%, transparent 98%)',
                 WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 98%)'
