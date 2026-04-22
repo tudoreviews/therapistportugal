@@ -57,7 +57,7 @@ const Dashboard = () => {
         <div className="bg-card border border-border p-8 rounded-2xl">
           <h2 className="text-xl font-bold mb-4 text-primary">Bem-vindo, Dr. Nuno Santos</h2>
           <p className="text-muted-foreground leading-relaxed">
-            Aqui pode gerir todos os agendamentos, visualizar os seus pacientes e configurar os detalhes da sua clínica. 
+            Aqui pode gerir todos os agendamentos e visualizar os seus pacientes. 
             Utilize o menu lateral para navegar entre as diferentes secções.
           </p>
         </div>

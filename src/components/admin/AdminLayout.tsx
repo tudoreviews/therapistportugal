@@ -28,7 +28,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     { label: "Painel", icon: LayoutDashboard, href: "/admin" },
     { label: "Agendamentos", icon: Calendar, href: "/admin/appointments" },
     { label: "Pacientes", icon: Users, href: "/admin/patients" },
-    { label: "Configurações", icon: Settings, href: "/admin/settings" },
+    
   ];
 
   const NavLink = ({ item }: { item: typeof navItems[0] }) => {
