@@ -209,11 +209,11 @@ const BookingSection = () => {
   }
 
   return (
-    <section id="agendar" className="py-24 px-6">
+    <section id="agendar" className="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">
         <div className="text-center mb-10">
-          <p className="text-primary text-sm font-medium tracking-[0.2em] uppercase mb-3">Marque já</p>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Agende o seu tratamento</h2>
+          <p className="text-primary text-xs md:text-sm font-medium tracking-[0.2em] uppercase mb-3">Marque já</p>
+          <h2 className="text-2xl md:text-4xl font-bold tracking-tight">Agende o seu tratamento</h2>
         </div>
 
         {/* Progress */}
@@ -247,7 +247,7 @@ const BookingSection = () => {
         {step > 1 && (
           <button
             onClick={handleBack}
-            className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6"
+            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-6 min-h-[44px]"
           >
             <ArrowLeft size={16} />
             Voltar
@@ -258,12 +258,12 @@ const BookingSection = () => {
         {step === 1 && (
           <div className="space-y-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={16} />
               <Input
                 placeholder="Pesquisar tratamento..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10"
+                className="pl-11 h-12 md:h-14 text-base"
               />
             </div>
             <div className="grid gap-3">
@@ -271,17 +271,17 @@ const BookingSection = () => {
                 <button
                   key={treatment.id}
                   onClick={() => handleSelectTreatment(treatment)}
-                  className="w-full text-left bg-card border border-border rounded-xl p-5 hover:border-primary/50 hover:bg-card/80 transition-all group"
+                  className="w-full text-left bg-card border border-border rounded-xl p-5 md:p-6 hover:border-primary/50 hover:bg-card/80 transition-all group min-h-[80px]"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 mb-1.5">
-                        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                      <div className="flex items-center gap-3 mb-2">
+                        <h3 className="font-bold text-foreground group-hover:text-primary transition-colors text-base md:text-lg">
                           {treatment.name}
                         </h3>
-                        <span className="text-primary font-bold text-sm whitespace-nowrap">{treatment.price} €</span>
+                        <span className="text-primary font-bold text-sm md:text-base whitespace-nowrap">{treatment.price} €</span>
                       </div>
-                      <p className="text-sm text-muted-foreground mb-2">{treatment.description}</p>
+                      <p className="text-sm text-muted-foreground mb-3 leading-relaxed">{treatment.description}</p>
                       <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                         <Clock size={12} />
                         {treatment.duration}
@@ -291,7 +291,7 @@ const BookingSection = () => {
                 </button>
               ))}
               {filteredTreatments.length === 0 && (
-                <p className="text-center text-muted-foreground py-8">Nenhum tratamento encontrado.</p>
+                <p className="text-center text-muted-foreground py-12">Nenhum tratamento encontrado.</p>
               )}
             </div>
           </div>
@@ -300,13 +300,12 @@ const BookingSection = () => {
         {/* Step 2: Date, Time & Contact */}
         {step === 2 && (
           <div className="space-y-6">
-            <p className="text-sm text-muted-foreground">
-              <span className="text-foreground font-medium">{selectedTreatment?.name}</span> com{" "}
-              <span className="text-foreground font-medium">{THERAPIST_NAME}</span>
+            <p className="text-sm text-muted-foreground bg-secondary/30 p-4 rounded-lg">
+              Selecionado: <span className="text-foreground font-semibold">{selectedTreatment?.name}</span>
             </p>
 
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-card border border-border rounded-xl p-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-card border border-border rounded-xl p-4 flex justify-center">
                 <Calendar
                   mode="single"
                   selected={selectedDate}
@@ -318,13 +317,13 @@ const BookingSection = () => {
               </div>
 
               <div>
-                <p className="text-sm font-medium mb-3">
+                <p className="text-sm font-bold mb-4">
                   {selectedDate
                     ? format(selectedDate, "EEEE, d 'de' MMMM", { locale: pt })
                     : "Selecione uma data"}
                 </p>
                 {selectedDate ? (
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                     {timeSlots.map((time) => {
                       const isBooked = bookedSlots.includes(time);
                       return (
@@ -333,12 +332,12 @@ const BookingSection = () => {
                           onClick={() => !isBooked && setSelectedTime(time)}
                           disabled={isBooked}
                           className={cn(
-                            "py-2.5 px-3 rounded-lg text-sm font-medium border transition-all",
+                            "h-12 rounded-xl text-sm font-bold border transition-all flex items-center justify-center",
                             isBooked
                               ? "bg-muted text-muted-foreground border-border opacity-50 cursor-not-allowed line-through"
                               : selectedTime === time
-                                ? "bg-primary text-primary-foreground border-primary"
-                                : "bg-card border-border text-foreground hover:border-primary/50"
+                                ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                                : "bg-card border-border text-foreground hover:border-primary/50 active:scale-95"
                           )}
                         >
                           {time}
@@ -347,37 +346,46 @@ const BookingSection = () => {
                     })}
                   </div>
                 ) : (
-                  <div className="flex items-center justify-center h-40 text-muted-foreground text-sm">
+                  <div className="flex items-center justify-center h-48 text-muted-foreground text-sm border-2 border-dashed border-border rounded-xl bg-muted/20">
                     Selecione uma data no calendário
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="bg-card border border-border rounded-xl p-5 space-y-4">
-              <p className="text-sm font-medium">Dados de contacto</p>
-              <div className="grid md:grid-cols-3 gap-3">
-                <Input placeholder="Nome completo" value={nome} onChange={(e) => setNome(e.target.value)} />
-                <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                <Input type="tel" placeholder="Telemóvel" value={telemovel} onChange={(e) => setTelemovel(e.target.value)} />
+            <div className="bg-card border border-border rounded-2xl p-6 space-y-6">
+              <p className="text-base font-bold">Os seus dados</p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="space-y-2">
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Nome</label>
+                  <Input placeholder="Nome completo" value={nome} onChange={(e) => setNome(e.target.value)} className="h-12" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Email</label>
+                  <Input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="h-12" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Telemóvel</label>
+                  <Input type="tel" placeholder="Telemóvel" value={telemovel} onChange={(e) => setTelemovel(e.target.value)} className="h-12" />
+                </div>
               </div>
             </div>
 
             <Button
               size="lg"
-              className="w-full text-base"
+              className="w-full h-14 md:h-16 text-lg font-bold rounded-xl shadow-xl shadow-primary/20"
               disabled={!selectedDate || !selectedTime || !contactFieldsFilled || isSubmitting}
               onClick={handleConfirm}
             >
               {isSubmitting ? (
-                <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> A guardar...</>
+                <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> A guardar...</>
               ) : (
                 <>Confirmar Agendamento — {selectedTreatment?.price} €</>
               )}
             </Button>
 
-            <p className="text-xs text-muted-foreground text-center">
-              Ao confirmar, concorda com a nossa política de privacidade.
+            <p className="text-[10px] md:text-xs text-muted-foreground text-center px-4 leading-relaxed">
+              Ao confirmar o agendamento, declara que aceita os nossos termos de serviço e política de privacidade.
             </p>
           </div>
         )}

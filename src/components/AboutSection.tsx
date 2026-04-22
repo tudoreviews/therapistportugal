@@ -25,34 +25,34 @@ const AboutSection = () => {
     "https://wa.me/351936342632?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20seus%20servi%C3%A7os.";
 
   return (
-    <section id="sobre" className="py-24 px-6" ref={sectionRef}>
+    <section id="sobre" className="py-16 md:py-24 px-4 sm:px-6 lg:px-8" ref={sectionRef}>
       <div
         className={`max-w-6xl mx-auto transition-all duration-700 ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
         }`}
       >
-        <div className="grid md:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-center">
           {/* Image */}
-          <div className="relative">
-            <div className="aspect-[3/4] rounded-2xl bg-card border border-border overflow-hidden">
+          <div className="relative order-2 md:order-1">
+            <div className="aspect-[4/5] sm:aspect-[3/4] rounded-2xl md:rounded-[2rem] bg-card border border-border overflow-hidden shadow-2xl">
               <img
                 src={drNunoImg}
                 alt="Dr. Nuno Santos - Unconventional Therapist"
                 className="w-full h-full object-cover object-top"
               />
             </div>
-            <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary/5 rounded-2xl -z-10" />
+            <div className="absolute -bottom-4 -right-4 w-32 h-32 bg-primary/10 rounded-2xl -z-10 blur-2xl" />
           </div>
 
           {/* Text */}
-          <div>
-            <p className="text-primary text-sm font-medium tracking-[0.2em] uppercase mb-3">
+          <div className="order-1 md:order-2">
+            <p className="text-primary text-xs md:text-sm font-semibold tracking-[0.2em] uppercase mb-4">
               Sobre nós
             </p>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-6">
+            <h2 className="text-[clamp(1.75rem,5vw,3rem)] font-bold tracking-tight mb-6 leading-tight">
               O Especialista: Nuno Santos
             </h2>
-            <div className="space-y-4 text-muted-foreground leading-relaxed mb-8 text-sm md:text-base">
+            <div className="space-y-4 text-muted-foreground leading-relaxed mb-10 text-base md:text-lg">
               <p>
                 Sou Nuno Santos, terapeuta não convencional apaixonado pelo que faço desde 1995.
               </p>
@@ -70,12 +70,13 @@ const AboutSection = () => {
               </p>
             </div>
 
-            <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="block sm:inline-block">
               <Button
                 variant="outline"
-                className="gap-2 border-primary/30 text-primary hover:bg-primary/10 hover:text-primary"
+                size="lg"
+                className="w-full sm:w-auto gap-2 border-primary/30 text-primary hover:bg-primary/10 hover:text-primary h-12 md:h-14 px-8 text-base font-semibold rounded-xl"
               >
-                <MessageCircle size={18} />
+                <MessageCircle size={20} />
                 Contactar via WhatsApp
               </Button>
             </a>
