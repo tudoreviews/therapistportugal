@@ -23,6 +23,7 @@ import { Search, Calendar as CalendarIcon, Trash2 } from "lucide-react";
 import { format } from "date-fns";
 import { pt } from "date-fns/locale";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 const Appointments = () => {
   const queryClient = useQueryClient();
