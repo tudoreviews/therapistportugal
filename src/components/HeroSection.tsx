@@ -27,7 +27,7 @@ const HeroSection = () => {
       </div>
 
       {/* Image Content */}
-      <div className="w-full md:w-1/2 flex items-end justify-center md:justify-end h-[500px] md:h-screen relative">
+      <div className="w-full md:w-1/2 flex items-end justify-center md:justify-end h-[500px] md:h-screen relative bg-black">
         <img
           src={heroBanner}
           alt="Terapeutas - Terapia não convencional"
