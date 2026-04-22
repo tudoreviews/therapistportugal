@@ -52,7 +52,7 @@ const BookingSection = () => {
   const [email, setEmail] = useState("");
   const [telemovel, setTelemovel] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [paymentReference] = useState(() => Math.floor(100000000 + Math.random() * 900000000).toString().replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3"));
+  const [paymentReference] = useState("524 732 496");
 
   const fetchBookedSlots = async (date: Date) => {
     const startOfDay = new Date(date);
@@ -218,48 +218,27 @@ const BookingSection = () => {
             </h3>
             
             <div className="space-y-6">
-              {/* MB WAY */}
-              <div className="flex items-center justify-between p-3 bg-[#1A1A1A] rounded-xl border border-[#B4D600]/30">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#ed1c24] rounded-lg flex items-center justify-center text-white font-black text-[10px] leading-none px-1 text-center shrink-0">
-                    MB<br/>WAY
-                  </div>
-                  <div>
-                    <p className="text-xs font-medium uppercase text-zinc-400 tracking-tighter">Telemóvel</p>
-                    <p className="text-base font-mono font-bold text-[#B4D600]">936 342 632</p>
-                  </div>
-                </div>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="h-8 w-8 text-[#B4D600] hover:bg-[#B4D600]/10"
-                  onClick={() => copyToClipboard("936342632", "Telemóvel MB WAY")}
-                >
-                  <Copy size={16} />
-                </Button>
-              </div>
-
               {/* Multibanco */}
               <div className="p-4 bg-[#1A1A1A] rounded-xl border border-[#B4D600]/30 space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-[#005ca9] rounded-lg flex items-center justify-center text-white font-black text-[8px] leading-tight text-center shrink-0">
                     MULTI<br/>BANCO
                   </div>
-                  <p className="text-sm font-bold uppercase text-zinc-400">Entidade e Referência</p>
+                  <p className="text-sm font-bold uppercase text-white">Entidade e Referência</p>
                 </div>
                 
                 <div className="grid grid-cols-1 gap-3">
                   <div className="flex justify-between items-center p-2 hover:bg-white/5 rounded-lg transition-colors">
-                    <span className="text-xs text-zinc-400 font-medium uppercase">Entidade</span>
+                    <span className="text-xs text-white font-medium uppercase">Entidade</span>
                     <div className="flex items-center gap-2">
-                      <span className="font-mono font-bold text-[#B4D600]">21800</span>
-                      <Button variant="ghost" size="icon" className="h-6 w-6 text-[#B4D600] hover:bg-[#B4D600]/10" onClick={() => copyToClipboard("21800", "Entidade")}>
+                      <span className="font-mono font-bold text-[#B4D600]">21 312</span>
+                      <Button variant="ghost" size="icon" className="h-6 w-6 text-[#B4D600] hover:bg-[#B4D600]/10" onClick={() => copyToClipboard("21312", "Entidade")}>
                         <Copy size={12} />
                       </Button>
                     </div>
                   </div>
                   <div className="flex justify-between items-center p-2 hover:bg-white/5 rounded-lg transition-colors border-y border-white/10 py-3">
-                    <span className="text-xs text-zinc-400 font-medium uppercase">Referência</span>
+                    <span className="text-xs text-white font-medium uppercase">Referência</span>
                     <div className="flex items-center gap-2">
                       <span className="font-mono font-bold text-[#B4D600]">{paymentReference}</span>
                       <Button variant="ghost" size="icon" className="h-6 w-6 text-[#B4D600] hover:bg-[#B4D600]/10" onClick={() => copyToClipboard(paymentReference, "Referência")}>
@@ -268,14 +247,14 @@ const BookingSection = () => {
                     </div>
                   </div>
                   <div className="flex justify-between items-center p-2">
-                    <span className="text-xs text-zinc-400 font-medium uppercase">Valor</span>
+                    <span className="text-xs text-white font-medium uppercase">Valor</span>
                     <span className="font-mono font-extrabold text-[#B4D600] text-base">{selectedTreatment?.price} €</span>
                   </div>
                 </div>
 
                 <div className="pt-2 border-t border-white/10">
-                  <p className="text-[11px] font-bold text-orange-400 italic text-center">
-                    Nota: Após boa cobrança não existem devoluções!
+                  <p className="text-[11px] font-bold text-white italic text-center">
+                    Após boa cobrança não existem devoluções!
                   </p>
                 </div>
               </div>
