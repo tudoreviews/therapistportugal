@@ -99,16 +99,16 @@ const Appointments = () => {
       return;
     }
 
-    const headers = ["Data/Hora", "Nome", "Email", "Telefone", "Servico", "Mensagem", "Estado"];
+    const headers = ["Data/Hora", "Nome", "Email", "Telemóvel", "Serviço", "Terapeuta", "Estado"];
     const csvContent = [
       headers.join(","),
       ...filteredAppointments.map(app => [
         `"${format(new Date(app.data_hora), "dd/MM/yyyy HH:mm")}"`,
         `"${app.nome}"`,
         `"${app.email}"`,
-        `"${app.telefone || ""}"`,
+        `"${app.telemovel || ""}"`,
         `"${app.servico}"`,
-        `"${(app.mensagem || "").replace(/"/g, '""')}"`,
+        `"${app.terapeuta || ""}"`,
         `"${app.status || "Pendente"}"`
       ].join(","))
     ].join("\n");
