@@ -44,7 +44,7 @@ const ResultsSection = () => {
           <h2 className="text-[clamp(2rem,5vw,3rem)] font-bold tracking-tight mb-4">
             Antes & Depois
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-sm md:text-base">
+          <p className="max-w-2xl mx-auto text-sm md:text-base text-center">
             Casos clínicos reais que demonstram a eficácia das terapias não convencionais
             aplicadas pelo Dr. Nuno Santos.
           </p>
@@ -86,7 +86,7 @@ const ResultsSection = () => {
               <CardContent className="p-6">
                 <h3 className="text-lg md:text-xl font-bold mb-1">{c.title}</h3>
                 <p className="text-primary text-xs md:text-sm font-medium mb-3">{c.subtitle}</p>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+                <p className="text-sm">
                   {c.description}
                 </p>
               </CardContent>
