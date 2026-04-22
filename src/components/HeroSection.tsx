@@ -30,7 +30,7 @@ const HeroSection = () => {
               <Button 
                 variant="outline"
                 size="lg" 
-                className="border-white text-white hover:bg-white/10 font-bold h-14 px-8 text-lg rounded-none transition-all bg-transparent"
+                className="border-white text-white hover:bg-[#B4D600] hover:border-[#B4D600] hover:text-black font-bold h-14 px-8 text-lg rounded-none transition-all bg-transparent"
                 asChild
               >
                 <a href="#servicos">VER SERVIÇOS</a>
