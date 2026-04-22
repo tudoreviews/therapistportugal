@@ -5,13 +5,13 @@ const HeroSection = () => {
   return (
     <section id="hero" className="relative w-full min-h-screen flex flex-col md:flex-row bg-[#000000] overflow-hidden">
       {/* Text Content */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center px-8 py-20 md:px-12 lg:px-24 z-10 text-center md:text-left pt-32 md:pt-0">
+      <div className="w-full md:w-1/2 flex flex-col justify-center px-10 py-24 md:px-12 lg:px-24 z-10 text-center md:text-left pt-36 md:pt-0">
         <div className="max-w-2xl">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tighter leading-[1] mb-8 text-white uppercase italic">
+          <h1 className="text-5xl sm:text-6xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tighter leading-[0.95] mb-8 text-white uppercase italic">
             SENTE <span className="text-primary not-italic">DORES</span> <br className="hidden sm:block" />
             PELO <span className="text-primary not-italic">CORPO?</span>
           </h1>
-          <p className="text-gray-400 text-lg md:text-xl max-w-xl mb-10 leading-relaxed mx-auto md:mx-0 font-medium">
+          <p className="text-muted-foreground text-lg md:text-xl max-w-xl mb-12 leading-relaxed mx-auto md:mx-0 font-medium">
             Descubra como a terapia não convencional pode transformar a sua qualidade de vida, 
             promovendo o equilíbrio e bem-estar que o seu corpo merece.
           </p>
