@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Calendar as CalendarIcon, Trash2 } from "lucide-react";
+import { Search, Calendar as CalendarIcon, Trash2, Download } from "lucide-react";
 import { format } from "date-fns";
 import { pt } from "date-fns/locale";
 import { toast } from "sonner";
@@ -93,6 +93,38 @@ const Appointments = () => {
     }
   };
 
+  const exportToCSV = () => {
+    if (!filteredAppointments || filteredAppointments.length === 0) {
+      toast.error("Não há dados para exportar");
+      return;
+    }
+
+    const headers = ["Data/Hora", "Nome", "Email", "Telemóvel", "Serviço", "Terapeuta", "Estado"];
+    const csvContent = [
+      headers.join(","),
+      ...filteredAppointments.map(app => [
+        `"${format(new Date(app.data_hora), "dd/MM/yyyy HH:mm")}"`,
+        `"${app.nome}"`,
+        `"${app.email}"`,
+        `"${app.telemovel || ""}"`,
+        `"${app.servico}"`,
+        `"${app.terapeuta || ""}"`,
+        `"${app.status || "Pendente"}"`
+      ].join(","))
+    ].join("\n");
+
+    const blob = new Blob(["\ufeff" + csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `agendamentos_${format(new Date(), "yyyy-MM-dd")}.csv`);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success("CSV exportado com sucesso!");
+  };
+
   return (
     <AdminLayout>
       <div className="space-y-6">
@@ -101,6 +133,10 @@ const Appointments = () => {
             <h1 className="text-3xl font-bold">Agendamentos</h1>
             <p className="text-muted-foreground">Gerir todas as marcações da clínica.</p>
           </div>
+          <Button onClick={exportToCSV} variant="outline" className="flex items-center gap-2">
+            <Download size={18} />
+            Exportar para CSV
+          </Button>
         </div>
 
         {/* Filters */}
