@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Instagram, Phone, MapPin } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 const Footer = () => {
@@ -21,17 +21,17 @@ const Footer = () => {
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-foreground mb-8">Contactos</h4>
             <div className="space-y-5">
-              <a href="mailto:info@unconventionaltherapist.pt" className="flex items-center justify-center md:justify-start gap-4 text-base text-muted-foreground hover:text-primary transition-all group">
+              <a href="https://www.instagram.com/nuno.therapist.pt" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center md:justify-start gap-4 text-base text-muted-foreground hover:text-primary transition-all group">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
-                  <Mail size={18} className="text-primary" />
+                  <Instagram size={18} className="text-primary" />
                 </div>
-                info@unconventionaltherapist.pt
+                @nuno.therapist.pt
               </a>
-              <a href="tel:+351900000000" className="flex items-center justify-center md:justify-start gap-4 text-base text-muted-foreground hover:text-primary transition-all group">
+              <a href="tel:+351936342632" className="flex items-center justify-center md:justify-start gap-4 text-base text-muted-foreground hover:text-primary transition-all group">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Phone size={18} className="text-primary" />
                 </div>
-                +351 900 000 000
+                +351 936 342 632
               </a>
               <div className="flex items-center justify-center md:justify-start gap-4 text-base text-muted-foreground group">
                 <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform">
