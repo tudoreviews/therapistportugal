@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound.tsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
 import TermsOfUse from "./pages/TermsOfUse.tsx";
 import ScrollToTop from "./components/ScrollToTop.tsx";
+import CookieBanner from "./components/CookieBanner.tsx";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <CookieBanner />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/politica-privacidade" element={<PrivacyPolicy />} />
