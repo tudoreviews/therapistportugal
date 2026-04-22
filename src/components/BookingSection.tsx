@@ -153,101 +153,146 @@ const BookingSection = () => {
 
   const contactFieldsFilled = nome.trim() && email.trim() && telemovel.trim();
 
+  const copyToClipboard = (text: string, label: string) => {
+    navigator.clipboard.writeText(text.replace(/\s/g, ''));
+    toast.success(`${label} copiado!`);
+  };
+
   if (submitted) {
     return (
-      <section id="agendar" className="py-24 px-6">
-        <div className="max-w-lg mx-auto text-center">
-          <img src={logo} alt="Unconventional Therapist" className="h-16 w-auto object-contain mx-auto mb-6" />
-          <div className="w-16 h-16 rounded-full bg-primary/10 mx-auto mb-6 flex items-center justify-center">
-            <CheckCircle className="text-primary" size={32} />
+      <section id="agendar" className="py-12 md:py-24 px-6 bg-muted/30">
+        <div className="max-w-lg mx-auto text-center animate-fade-in">
+          <img src={logo} alt="Unconventional Therapist" className="h-16 w-auto object-contain mx-auto mb-8" />
+          
+          <div className="w-20 h-20 rounded-full bg-primary/10 mx-auto mb-6 flex items-center justify-center">
+            <CheckCircle className="text-primary" size={40} />
           </div>
-          <h2 className="text-3xl font-bold tracking-tight mb-4">Agendamento confirmado!</h2>
-          <div className="bg-card border border-border rounded-xl p-6 text-left mb-8 space-y-3">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground text-sm">Nome</span>
-              <span className="text-sm font-medium">{nome}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground text-sm">Tratamento</span>
-              <span className="text-sm font-medium">{selectedTreatment?.name}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground text-sm">Terapeuta</span>
-              <span className="text-sm font-medium">{THERAPIST_NAME}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground text-sm">Data</span>
-              <span className="text-sm font-medium">{selectedDate && format(selectedDate, "PPP", { locale: pt })}</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-muted-foreground text-sm">Hora</span>
-              <span className="text-sm font-medium">{selectedTime}</span>
-            </div>
-            <div className="border-t border-border pt-3 flex justify-between">
-              <span className="text-muted-foreground text-sm">Preço</span>
-              <span className="text-sm font-bold text-primary">{selectedTreatment?.price} €</span>
+          
+          <h2 className="text-3xl font-bold tracking-tight mb-2">Agendamento confirmado!</h2>
+          <p className="text-muted-foreground mb-8">O seu pedido foi recebido. Finalize o pagamento para validar.</p>
+          
+          {/* Summary */}
+          <div className="bg-card border border-border rounded-2xl p-6 text-left mb-6 shadow-sm">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-4 border-b border-border pb-2">Resumo da Marcação</h3>
+            <div className="space-y-3">
+              <div className="flex justify-between items-center">
+                <span className="text-muted-foreground text-sm">Nome</span>
+                <span className="text-sm font-semibold">{nome}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-muted-foreground text-sm">Tratamento</span>
+                <span className="text-sm font-semibold">{selectedTreatment?.name}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-muted-foreground text-sm">Terapeuta</span>
+                <span className="text-sm font-semibold">{THERAPIST_NAME}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-muted-foreground text-sm">Data</span>
+                <span className="text-sm font-semibold">{selectedDate && format(selectedDate, "PPP", { locale: pt })}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <span className="text-muted-foreground text-sm">Hora</span>
+                <span className="text-sm font-semibold">{selectedTime}</span>
+              </div>
+              <div className="pt-3 flex justify-between items-center border-t border-border">
+                <span className="font-bold text-sm">Valor Total</span>
+                <span className="text-lg font-black text-primary">{selectedTreatment?.price} €</span>
+              </div>
             </div>
           </div>
-          <div className="bg-card border border-border rounded-xl p-6 text-left mb-8">
-            <h3 className="text-lg font-bold mb-4">Pagamento do Serviço</h3>
+
+          {/* Payment Card */}
+          <div className="bg-primary/5 border border-primary/20 rounded-2xl p-6 text-left mb-8 shadow-sm">
+            <h3 className="text-lg font-bold mb-5 flex items-center gap-2">
+              <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
+              Efetue o Pagamento para Validar
+            </h3>
             
             <div className="space-y-6">
               {/* MB WAY */}
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between p-3 bg-white/80 rounded-xl border border-primary/10">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-[#ed1c24] rounded-lg flex items-center justify-center text-white font-black text-[10px] leading-none px-1 text-center">
+                  <div className="w-10 h-10 bg-[#ed1c24] rounded-lg flex items-center justify-center text-white font-black text-[10px] leading-none px-1 text-center shrink-0">
                     MB<br/>WAY
                   </div>
                   <div>
-                    <p className="text-sm font-semibold">MB WAY</p>
-                    <p className="text-xs text-muted-foreground">Telemóvel: 936 342 632</p>
+                    <p className="text-xs font-bold uppercase text-muted-foreground tracking-tighter">Telemóvel</p>
+                    <p className="text-base font-mono font-bold">936 342 632</p>
                   </div>
                 </div>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="h-8 w-8 text-primary hover:bg-primary/10"
+                  onClick={() => copyToClipboard("936342632", "Telemóvel MB WAY")}
+                >
+                  <Copy size={16} />
+                </Button>
               </div>
 
               {/* Multibanco */}
-              <div className="space-y-3 pt-4 border-t border-border">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 bg-[#005ca9] rounded-lg flex items-center justify-center text-white font-black text-[8px] leading-tight text-center">
+              <div className="p-4 bg-white/80 rounded-xl border border-primary/10 space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-[#005ca9] rounded-lg flex items-center justify-center text-white font-black text-[8px] leading-tight text-center shrink-0">
                     MULTI<br/>BANCO
                   </div>
-                  <p className="text-sm font-semibold">Multibanco</p>
+                  <p className="text-sm font-bold uppercase text-muted-foreground">Entidade e Referência</p>
                 </div>
                 
-                <div className="grid grid-cols-2 gap-y-2 text-sm">
-                  <span className="text-muted-foreground">Entidade:</span>
-                  <span className="font-mono font-medium">21800</span>
-                  
-                  <span className="text-muted-foreground">Referência:</span>
-                  <span className="font-mono font-medium">123 456 789</span>
-                  
-                  <span className="text-muted-foreground">Montante:</span>
-                  <span className="font-bold text-primary">{selectedTreatment?.price} €</span>
+                <div className="grid grid-cols-1 gap-3">
+                  <div className="flex justify-between items-center p-2 hover:bg-muted/50 rounded-lg transition-colors">
+                    <span className="text-xs text-muted-foreground font-medium uppercase">Entidade</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono font-bold">21800</span>
+                      <Button variant="ghost" size="icon" className="h-6 w-6 text-primary" onClick={() => copyToClipboard("21800", "Entidade")}>
+                        <Copy size={12} />
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center p-2 hover:bg-muted/50 rounded-lg transition-colors border-y border-border/50 py-3">
+                    <span className="text-xs text-muted-foreground font-medium uppercase">Referência</span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-mono font-bold">{paymentReference}</span>
+                      <Button variant="ghost" size="icon" className="h-6 w-6 text-primary" onClick={() => copyToClipboard(paymentReference, "Referência")}>
+                        <Copy size={12} />
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="flex justify-between items-center p-2">
+                    <span className="text-xs text-muted-foreground font-medium uppercase">Valor</span>
+                    <span className="font-mono font-extrabold text-primary text-base">{selectedTreatment?.price} €</span>
+                  </div>
                 </div>
               </div>
             </div>
             
-            <p className="text-[11px] text-muted-foreground mt-6 text-center italic">
-              Por favor, envie o comprovativo após o pagamento.
+            <p className="text-[11px] text-muted-foreground mt-6 text-center italic bg-white/50 py-2 rounded-lg border border-border/50">
+              O agendamento será validado após a receção do comprovativo.
             </p>
           </div>
 
-          <p className="text-muted-foreground text-sm mb-6">
-            Entraremos em contacto consigo para confirmar os detalhes.
-          </p>
-          <a
-            href={`https://wa.me/351936342632?text=${encodeURIComponent(
-              `Olá, acabei de agendar ${selectedTreatment?.name} para o dia ${selectedDate ? format(selectedDate, "d 'de' MMMM", { locale: pt }) : ""} às ${selectedTime}. O meu nome é ${nome}.`
-            )}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block w-full mb-4"
-          >
-            <Button size="lg" className="w-full text-base bg-[#25D366] hover:bg-[#1da851] text-white">
-              Confirmar via WhatsApp
+          <div className="space-y-3">
+            <a
+              href={`https://wa.me/351936342632?text=${encodeURIComponent(
+                `Olá Dr. Nuno, o meu nome é ${nome}. Acabei de agendar o serviço ${selectedTreatment?.name} para o dia ${selectedDate ? format(selectedDate, "d 'de' MMMM", { locale: pt }) : ""} às ${selectedTime}. Segue em anexo o meu comprovativo de pagamento. Obrigado!`
+              )}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full"
+            >
+              <Button size="lg" className="w-full text-base bg-[#25D366] hover:bg-[#1da851] text-white py-6 shadow-md hover:shadow-lg transition-all h-auto">
+                <div className="flex flex-col">
+                  <span>Enviar Comprovativo via WhatsApp</span>
+                  <span className="text-[10px] opacity-80 font-normal">Clique para anexar o seu comprovativo</span>
+                </div>
+              </Button>
+            </a>
+            
+            <Button onClick={handleReset} variant="outline" className="w-full h-12 text-muted-foreground hover:text-foreground">
+              Agendar outro tratamento
             </Button>
-          </a>
-          <Button onClick={handleReset} variant="outline">Agendar outro tratamento</Button>
+          </div>
         </div>
       </section>
     );
