@@ -7,7 +7,7 @@ const HeroSection = () => {
       className="bg-black min-h-screen w-full flex items-center pt-24 lg:pt-0 overflow-hidden"
     >
       <div className="max-w-7xl mx-auto px-[20px] md:px-12 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-center relative">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-end relative">
           
           {/* Lado Esquerdo: Texto */}
           <div className="flex flex-col text-left order-1 z-10">
