@@ -26,18 +26,21 @@ const CookieBanner = () => {
         <div className="text-sm text-muted-foreground text-center md:text-left leading-relaxed">
           <p>
             Utilizamos cookies para melhorar a sua experiência no nosso site. Ao continuar a navegar, concorda com a nossa{' '}
-            <Link to="/politica-privacidade" className="text-primary hover:underline underline-offset-4 font-medium transition-colors">
+            <Link to="/politica-privacidade" className="text-[#B4D600] hover:underline underline-offset-4 font-medium transition-colors">
               Política de Privacidade
             </Link>.
           </p>
         </div>
-        <div className="flex items-center gap-3 shrink-0">
-          <Button onClick={acceptCookies} className="rounded-full px-8 font-bold hover:scale-105 active:scale-95 transition-all">
+        <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full md:w-auto">
+          <Button 
+            onClick={acceptCookies} 
+            className="w-full sm:w-auto rounded-full px-8 font-bold bg-[#B4D600] text-black hover:bg-[#B4D600]/90 hover:scale-105 active:scale-95 transition-all"
+          >
             Aceitar
           </Button>
           <button 
             onClick={() => setShowBanner(false)}
-            className="p-2 text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-secondary"
+            className="p-2 text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-secondary hidden sm:flex"
             aria-label="Fechar"
           >
             <X size={20} />
