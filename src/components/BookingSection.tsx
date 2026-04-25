@@ -39,6 +39,18 @@ const timeSlots = Array.from({ length: 48 }, (_, i) => {
   return `${String(hours).padStart(2, "0")}:${minutes}`;
 });
 
+const isUrgencyTime = (time?: string) => {
+  if (!time) return false;
+  const [hours, minutes] = time.split(":").map(Number);
+  const timeInMinutes = hours * 60 + minutes;
+  
+  const urgencyStart = 21 * 60 + 30; // 21:30
+  const urgencyEnd = 8 * 60; // 08:00
+  
+  // Handles crossing midnight
+  return timeInMinutes >= urgencyStart || timeInMinutes <= urgencyEnd;
+};
+
 const BookingSection = () => {
   const [step, setStep] = useState(1);
   const [selectedTreatment, setSelectedTreatment] = useState<Treatment | null>(null);
@@ -202,11 +214,30 @@ const BookingSection = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-muted-foreground text-sm">Hora</span>
-                <span className="text-sm font-semibold">{selectedTime}</span>
+                <span className="text-sm font-semibold flex items-center gap-2">
+                  {selectedTime}
+                  {isUrgencyTime(selectedTime) && (
+                    <span className="text-[10px] text-amber-600 font-bold uppercase">(Urgência)</span>
+                  )}
+                </span>
               </div>
+              
+              {isUrgencyTime(selectedTime) && (
+                <div className="py-2 px-3 bg-red-50 rounded-lg border border-red-100 mt-2">
+                  <p className="text-[11px] text-red-600 font-bold leading-tight">
+                    Nota: Este horário está sujeito a uma Taxa de Urgência (valor sob consulta via WhatsApp).
+                  </p>
+                </div>
+              )}
+
               <div className="pt-3 flex justify-between items-center border-t border-border">
                 <span className="font-bold text-sm">Valor Total</span>
-                <span className="text-lg font-black text-primary">{selectedTreatment?.price} €</span>
+                <span className={cn(
+                  "font-black text-primary",
+                  isUrgencyTime(selectedTime) ? "text-base" : "text-lg"
+                )}>
+                  {isUrgencyTime(selectedTime) ? "A combinar (Taxa de Urgência)" : `${selectedTreatment?.price} €`}
+                </span>
               </div>
             </div>
           </div>
@@ -249,7 +280,9 @@ const BookingSection = () => {
                   </div>
                   <div className="flex justify-between items-center p-2">
                     <span className="text-xs text-white font-medium uppercase">Valor</span>
-                    <span className="font-mono font-extrabold text-[#B4D600] text-base">{selectedTreatment?.price} €</span>
+                    <span className="font-mono font-extrabold text-[#B4D600] text-base">
+                      {isUrgencyTime(selectedTime) ? "A combinar" : `${selectedTreatment?.price} €`}
+                    </span>
                   </div>
                 </div>
 
@@ -460,15 +493,20 @@ const BookingSection = () => {
                             onClick={() => !isBooked && setSelectedTime(time)}
                             disabled={isBooked}
                             className={cn(
-                              "h-11 rounded-lg text-sm font-bold border transition-all flex items-center justify-center relative",
+                              "h-14 rounded-lg text-sm font-bold border transition-all flex flex-col items-center justify-center relative",
                               isBooked
                                 ? "bg-muted text-muted-foreground border-border opacity-50 cursor-not-allowed line-through"
                                 : selectedTime === time
                                   ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
-                                  : "bg-card border-border text-foreground hover:border-primary/50 active:scale-95"
+                                  : isUrgencyTime(time)
+                                    ? "bg-amber-500/5 border-amber-500/30 text-foreground hover:border-amber-500/60"
+                                    : "bg-card border-border text-foreground hover:border-primary/50 active:scale-95"
                             )}
                           >
-                            {time}
+                            <span>{time}</span>
+                            {isUrgencyTime(time) && (
+                              <span className="text-[9px] font-medium text-amber-600 mt-0.5 animate-pulse">(Urgência)</span>
+                            )}
                           </button>
                         );
                       })}
@@ -515,6 +553,14 @@ const BookingSection = () => {
               </Label>
             </div>
 
+            {isUrgencyTime(selectedTime) && (
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-center">
+                <p className="text-red-600 font-bold text-sm">
+                  Nota: Este horário está sujeito a uma Taxa de Urgência (valor sob consulta via WhatsApp).
+                </p>
+              </div>
+            )}
+
             <Button
               size="lg"
               className="w-full h-14 md:h-16 text-lg font-bold rounded-xl shadow-xl shadow-primary/20"
@@ -524,7 +570,7 @@ const BookingSection = () => {
               {isSubmitting ? (
                 <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> A guardar...</>
               ) : (
-                <>Confirmar Agendamento — {selectedTreatment?.price} €</>
+                <>Confirmar Agendamento — {isUrgencyTime(selectedTime) ? "A combinar (Taxa de Urgência)" : `${selectedTreatment?.price} €`}</>
               )}
             </Button>
 
