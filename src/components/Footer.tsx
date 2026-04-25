@@ -1,4 +1,4 @@
-import { Instagram, Phone, MapPin, ShieldCheck, FileText, ExternalLink } from "lucide-react";
+import { Instagram, Phone, MapPin, ShieldCheck, FileText, ExternalLink, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
 
@@ -79,6 +79,10 @@ const Footer = () => {
               <Link to="/termos-uso" className="flex items-center justify-center md:justify-start gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group">
                 <FileText size={16} className="text-primary/70 group-hover:text-primary" />
                 Termos de Uso
+              </Link>
+              <Link to="/admin/login" className="flex items-center justify-center md:justify-start gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group">
+                <Lock size={16} className="text-primary/70 group-hover:text-primary" />
+                Área Reservada
               </Link>
               <a 
                 href="https://www.livroreclamacoes.pt" 
