@@ -39,6 +39,18 @@ const timeSlots = Array.from({ length: 48 }, (_, i) => {
   return `${String(hours).padStart(2, "0")}:${minutes}`;
 });
 
+const isUrgencyTime = (time?: string) => {
+  if (!time) return false;
+  const [hours, minutes] = time.split(":").map(Number);
+  const timeInMinutes = hours * 60 + minutes;
+  
+  const urgencyStart = 21 * 60 + 30; // 21:30
+  const urgencyEnd = 8 * 60; // 08:00
+  
+  // Handles crossing midnight
+  return timeInMinutes >= urgencyStart || timeInMinutes <= urgencyEnd;
+};
+
 const BookingSection = () => {
   const [step, setStep] = useState(1);
   const [selectedTreatment, setSelectedTreatment] = useState<Treatment | null>(null);
