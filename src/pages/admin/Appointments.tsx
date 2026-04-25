@@ -55,8 +55,13 @@ const Appointments = () => {
       queryClient.invalidateQueries({ queryKey: ["admin-appointments"] });
       toast.success("Estado atualizado!");
     },
-    onError: (error) => {
-      toast.error("Erro ao atualizar: " + error.message);
+    onError: (error: any) => {
+      console.error("Erro ao atualizar:", error);
+      if (error.code === '42501' || error.status === 403 || error.message?.includes('permission')) {
+        toast.error("Erro: Sem permissão para atualizar dados. Verifica as políticas RLS no Supabase");
+      } else {
+        toast.error("Erro ao atualizar: " + error.message);
+      }
     }
   });
 
