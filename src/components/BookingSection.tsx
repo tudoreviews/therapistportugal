@@ -280,7 +280,9 @@ const BookingSection = () => {
                   </div>
                   <div className="flex justify-between items-center p-2">
                     <span className="text-xs text-white font-medium uppercase">Valor</span>
-                    <span className="font-mono font-extrabold text-[#B4D600] text-base">{selectedTreatment?.price} €</span>
+                    <span className="font-mono font-extrabold text-[#B4D600] text-base">
+                      {isUrgencyTime(selectedTime) ? "A combinar" : `${selectedTreatment?.price} €`}
+                    </span>
                   </div>
                 </div>
 
