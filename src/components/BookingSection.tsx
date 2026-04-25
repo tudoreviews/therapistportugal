@@ -409,27 +409,77 @@ const BookingSection = () => {
                     : "Selecione uma data"}
                 </p>
                 {selectedDate ? (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                    {timeSlots.map((time) => {
-                      const isBooked = bookedSlots.includes(time);
-                      return (
-                        <button
-                          key={time}
-                          onClick={() => !isBooked && setSelectedTime(time)}
-                          disabled={isBooked}
+                  <div className="space-y-6">
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {["Madrugada", "Manhã", "Tarde", "Noite"].map((period) => (
+                        <Button
+                          key={period}
+                          variant="outline"
+                          size="sm"
                           className={cn(
-                            "h-12 rounded-xl text-sm font-bold border transition-all flex items-center justify-center",
-                            isBooked
-                              ? "bg-muted text-muted-foreground border-border opacity-50 cursor-not-allowed line-through"
-                              : selectedTime === time
-                                ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
-                                : "bg-card border-border text-foreground hover:border-primary/50 active:scale-95"
+                            "rounded-full px-4",
+                            (period === "Madrugada" && parseInt(selectedTime?.split(":")[0] || "0") < 8) ||
+                            (period === "Manhã" && parseInt(selectedTime?.split(":")[0] || "0") >= 8 && parseInt(selectedTime?.split(":")[0] || "0") < 13) ||
+                            (period === "Tarde" && parseInt(selectedTime?.split(":")[0] || "0") >= 13 && parseInt(selectedTime?.split(":")[0] || "0") < 19) ||
+                            (period === "Noite" && parseInt(selectedTime?.split(":")[0] || "0") >= 19)
+                              ? "bg-primary text-primary-foreground border-primary"
+                              : "hover:bg-primary/10"
                           )}
+                          onClick={() => {
+                            // Find first available slot in that period
+                            const firstInPeriod = timeSlots.find(time => {
+                              const h = parseInt(time.split(":")[0]);
+                              if (period === "Madrugada") return h < 8;
+                              if (period === "Manhã") return h >= 8 && h < 13;
+                              if (period === "Tarde") return h >= 13 && h < 19;
+                              if (period === "Noite") return h >= 19;
+                              return false;
+                            });
+                            if (firstInPeriod) setSelectedTime(firstInPeriod);
+                          }}
                         >
-                          {time}
-                        </button>
-                      );
-                    })}
+                          {period}
+                        </Button>
+                      ))}
+                    </div>
+
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-[300px] overflow-y-auto p-1 scrollbar-thin scrollbar-thumb-primary/20">
+                      {timeSlots.map((time) => {
+                        const isBooked = bookedSlots.includes(time);
+                        const hour = parseInt(time.split(":")[0]);
+                        const isUrgency = hour >= 22 || hour < 7;
+                        
+                        return (
+                          <button
+                            key={time}
+                            onClick={() => !isBooked && setSelectedTime(time)}
+                            disabled={isBooked}
+                            className={cn(
+                              "h-11 rounded-lg text-sm font-bold border transition-all flex items-center justify-center relative",
+                              isBooked
+                                ? "bg-muted text-muted-foreground border-border opacity-50 cursor-not-allowed line-through"
+                                : selectedTime === time
+                                  ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                                  : "bg-card border-border text-foreground hover:border-primary/50 active:scale-95"
+                            )}
+                          >
+                            {time}
+                            {isUrgency && (
+                              <div className="absolute -top-1 -right-1 w-2 h-2 bg-destructive rounded-full" />
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+
+                    {selectedTime && (parseInt(selectedTime.split(":")[0]) >= 22 || parseInt(selectedTime.split(":")[0]) < 7) && (
+                      <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3 flex items-start gap-3 animate-in fade-in slide-in-from-top-1">
+                        <div className="w-1.5 h-1.5 rounded-full bg-destructive mt-1.5 shrink-0" />
+                        <p className="text-xs text-destructive font-semibold">
+                          Horário de Urgência - Sujeito a taxa de deslocação/noturna
+                        </p>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <div className="flex items-center justify-center h-48 text-muted-foreground text-sm border-2 border-dashed border-border rounded-xl bg-muted/20">
