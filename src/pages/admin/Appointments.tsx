@@ -55,8 +55,13 @@ const Appointments = () => {
       queryClient.invalidateQueries({ queryKey: ["admin-appointments"] });
       toast.success("Estado atualizado!");
     },
-    onError: (error) => {
-      toast.error("Erro ao atualizar: " + error.message);
+    onError: (error: any) => {
+      console.error("Erro ao atualizar:", error);
+      if (error.code === '42501' || error.status === 403 || error.message?.includes('permission')) {
+        toast.error("Erro: Sem permissão para atualizar dados. Verifica as políticas RLS no Supabase");
+      } else {
+        toast.error("Erro ao atualizar: " + error.message);
+      }
     }
   });
 
@@ -67,13 +72,23 @@ const Appointments = () => {
         .delete()
         .eq("id", id);
       if (error) throw error;
+      return id;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["admin-appointments"] });
-      toast.success("Agendamento apagado!");
+    onSuccess: (deletedId) => {
+      // Atualização instantânea da UI filtrando o estado local (cache do React Query)
+      queryClient.setQueryData(["admin-appointments"], (oldData: any[]) => {
+        return oldData?.filter((app) => app.id !== deletedId);
+      });
+      toast.success("Agendamento eliminado com sucesso");
     },
-    onError: (error) => {
-      toast.error("Erro ao apagar: " + error.message);
+    onError: (error: any) => {
+      console.error("Erro ao apagar agendamento:", error);
+      // Tratamento específico para erro de permissão (403 / RLS)
+      if (error.code === '42501' || error.status === 403 || error.message?.includes('permission')) {
+        toast.error("Erro: Sem permissão para apagar dados. Verifica as políticas RLS no Supabase");
+      } else {
+        toast.error("Erro ao apagar: " + error.message);
+      }
     }
   });
 
