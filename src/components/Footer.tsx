@@ -46,17 +46,12 @@ const Footer = () => {
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-foreground mb-8">Horário</h4>
             <div className="space-y-3 text-base text-muted-foreground mb-8">
-              <p className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                Segunda a Sexta: 09:00 — 19:00
+              <p className="flex items-center gap-3 font-bold text-primary">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                Disponível 24/7 para Emergências
               </p>
-              <p className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                Sábado: 09:00 — 13:00
-              </p>
-              <p className="flex items-center gap-3 opacity-60">
-                <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
-                Domingo: Encerrado
+              <p className="text-sm">
+                Atendimento permanente todos os dias da semana, incluindo fins de semana e feriados.
               </p>
             </div>
             <a
