@@ -472,15 +472,20 @@ const BookingSection = () => {
                             onClick={() => !isBooked && setSelectedTime(time)}
                             disabled={isBooked}
                             className={cn(
-                              "h-11 rounded-lg text-sm font-bold border transition-all flex items-center justify-center relative",
+                              "h-14 rounded-lg text-sm font-bold border transition-all flex flex-col items-center justify-center relative",
                               isBooked
                                 ? "bg-muted text-muted-foreground border-border opacity-50 cursor-not-allowed line-through"
                                 : selectedTime === time
                                   ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
-                                  : "bg-card border-border text-foreground hover:border-primary/50 active:scale-95"
+                                  : isUrgencyTime(time)
+                                    ? "bg-amber-500/5 border-amber-500/30 text-foreground hover:border-amber-500/60"
+                                    : "bg-card border-border text-foreground hover:border-primary/50 active:scale-95"
                             )}
                           >
-                            {time}
+                            <span>{time}</span>
+                            {isUrgencyTime(time) && (
+                              <span className="text-[9px] font-medium text-amber-600 mt-0.5 animate-pulse">(Urgência)</span>
+                            )}
                           </button>
                         );
                       })}
