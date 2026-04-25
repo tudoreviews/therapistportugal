@@ -33,10 +33,11 @@ const treatments: Treatment[] = [
   { id: "fascial", name: "Libertação Miofascial", price: 55, duration: "50 min", description: "Técnicas de libertação de tecido fascial para maior mobilidade" },
 ];
 
-const timeSlots = [
-  "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
-  "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
-];
+const timeSlots = Array.from({ length: 48 }, (_, i) => {
+  const hours = Math.floor(i / 2);
+  const minutes = i % 2 === 0 ? "00" : "30";
+  return `${String(hours).padStart(2, "0")}:${minutes}`;
+});
 
 const BookingSection = () => {
   const [step, setStep] = useState(1);
