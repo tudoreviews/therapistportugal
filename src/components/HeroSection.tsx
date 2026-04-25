@@ -12,7 +12,7 @@ const HeroSection = () => {
           {/* Lado Esquerdo: Texto */}
           <div className="flex flex-col text-left order-1 z-10">
             <h1 className="text-3xl lg:text-5xl font-bold text-white mb-6 leading-tight uppercase tracking-tight">
-              SENTE <span className="text-[#B4D600]">DORES</span> PELO <span className="text-[#B4D600]">CORPO</span>?
+              TENS <span className="text-[#B4D600]">DORES</span> NO <span className="text-[#B4D600]">CORPO</span>?
             </h1>
             
             <p className="text-lg md:text-xl mb-10 max-w-xl font-light">
