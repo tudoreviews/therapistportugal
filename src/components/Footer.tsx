@@ -80,6 +80,10 @@ const Footer = () => {
                 <FileText size={16} className="text-primary/70 group-hover:text-primary" />
                 Termos de Uso
               </Link>
+              <Link to="/admin/login" className="flex items-center justify-center md:justify-start gap-3 text-sm text-muted-foreground hover:text-primary transition-colors group">
+                <ShieldCheck size={16} className="text-primary/70 group-hover:text-primary" />
+                Área Reservada
+              </Link>
               <a 
                 href="https://www.livroreclamacoes.pt" 
                 target="_blank" 
