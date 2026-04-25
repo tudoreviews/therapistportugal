@@ -395,8 +395,16 @@ const BookingSection = () => {
                 <Calendar
                   mode="single"
                   selected={selectedDate}
-                  onSelect={(d) => { setSelectedDate(d); setSelectedTime(undefined); if (d) fetchBookedSlots(d); }}
-                  disabled={(d) => d < new Date()}
+                  onSelect={(d) => { 
+                    setSelectedDate(d); 
+                    setSelectedTime(undefined); 
+                    if (d) fetchBookedSlots(d); 
+                  }}
+                  disabled={(d) => {
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    return d < today;
+                  }}
                   locale={pt}
                   className="p-0 pointer-events-auto"
                 />
@@ -426,7 +434,6 @@ const BookingSection = () => {
                               : "hover:bg-primary/10"
                           )}
                           onClick={() => {
-                            // Find first available slot in that period
                             const firstInPeriod = timeSlots.find(time => {
                               const h = parseInt(time.split(":")[0]);
                               if (period === "Madrugada") return h < 8;
@@ -443,11 +450,9 @@ const BookingSection = () => {
                       ))}
                     </div>
 
-                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-[300px] overflow-y-auto p-1 scrollbar-thin scrollbar-thumb-primary/20">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-[400px] overflow-y-auto p-1 scrollbar-thin scrollbar-thumb-primary/20">
                       {timeSlots.map((time) => {
                         const isBooked = bookedSlots.includes(time);
-                        const hour = parseInt(time.split(":")[0]);
-                        const isUrgency = hour >= 22 || hour < 7;
                         
                         return (
                           <button
@@ -464,22 +469,10 @@ const BookingSection = () => {
                             )}
                           >
                             {time}
-                            {isUrgency && (
-                              <div className="absolute -top-1 -right-1 w-2 h-2 bg-destructive rounded-full" />
-                            )}
                           </button>
                         );
                       })}
                     </div>
-
-                    {selectedTime && (parseInt(selectedTime.split(":")[0]) >= 22 || parseInt(selectedTime.split(":")[0]) < 7) && (
-                      <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3 flex items-start gap-3 animate-in fade-in slide-in-from-top-1">
-                        <div className="w-1.5 h-1.5 rounded-full bg-destructive mt-1.5 shrink-0" />
-                        <p className="text-xs text-destructive font-semibold">
-                          Horário de Urgência - Sujeito a taxa de deslocação/noturna
-                        </p>
-                      </div>
-                    )}
                   </div>
                 ) : (
                   <div className="flex items-center justify-center h-48 text-muted-foreground text-sm border-2 border-dashed border-border rounded-xl bg-muted/20">
