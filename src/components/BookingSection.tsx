@@ -532,6 +532,14 @@ const BookingSection = () => {
               </Label>
             </div>
 
+            {isUrgencyTime(selectedTime) && (
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-center">
+                <p className="text-red-600 font-bold text-sm">
+                  Nota: Este horário está sujeito a uma Taxa de Urgência (valor sob consulta via WhatsApp).
+                </p>
+              </div>
+            )}
+
             <Button
               size="lg"
               className="w-full h-14 md:h-16 text-lg font-bold rounded-xl shadow-xl shadow-primary/20"
@@ -541,7 +549,7 @@ const BookingSection = () => {
               {isSubmitting ? (
                 <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> A guardar...</>
               ) : (
-                <>Confirmar Agendamento — {selectedTreatment?.price} €</>
+                <>Confirmar Agendamento — {isUrgencyTime(selectedTime) ? "A combinar (Taxa de Urgência)" : `${selectedTreatment?.price} €`}</>
               )}
             </Button>
 
