@@ -214,11 +214,30 @@ const BookingSection = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-muted-foreground text-sm">Hora</span>
-                <span className="text-sm font-semibold">{selectedTime}</span>
+                <span className="text-sm font-semibold flex items-center gap-2">
+                  {selectedTime}
+                  {isUrgencyTime(selectedTime) && (
+                    <span className="text-[10px] text-amber-600 font-bold uppercase">(Urgência)</span>
+                  )}
+                </span>
               </div>
+              
+              {isUrgencyTime(selectedTime) && (
+                <div className="py-2 px-3 bg-red-50 rounded-lg border border-red-100 mt-2">
+                  <p className="text-[11px] text-red-600 font-bold leading-tight">
+                    Nota: Este horário está sujeito a uma Taxa de Urgência (valor sob consulta via WhatsApp).
+                  </p>
+                </div>
+              )}
+
               <div className="pt-3 flex justify-between items-center border-t border-border">
                 <span className="font-bold text-sm">Valor Total</span>
-                <span className="text-lg font-black text-primary">{selectedTreatment?.price} €</span>
+                <span className={cn(
+                  "font-black text-primary",
+                  isUrgencyTime(selectedTime) ? "text-base" : "text-lg"
+                )}>
+                  {isUrgencyTime(selectedTime) ? "A combinar (Taxa de Urgência)" : `${selectedTreatment?.price} €`}
+                </span>
               </div>
             </div>
           </div>
