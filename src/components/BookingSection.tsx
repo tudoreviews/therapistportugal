@@ -396,7 +396,7 @@ const BookingSection = () => {
                   mode="single"
                   selected={selectedDate}
                   onSelect={(d) => { setSelectedDate(d); setSelectedTime(undefined); if (d) fetchBookedSlots(d); }}
-                  disabled={(d) => d < new Date() || d.getDay() === 0}
+                  disabled={(d) => d < new Date()}
                   locale={pt}
                   className="p-0 pointer-events-auto"
                 />
