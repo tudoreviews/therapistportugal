@@ -436,8 +436,13 @@ const BookingSection = () => {
                   disabled={(d) => {
                     const today = new Date();
                     today.setHours(0, 0, 0, 0);
-                    return d < today;
+                    const max = new Date();
+                    max.setHours(0, 0, 0, 0);
+                    max.setDate(max.getDate() + 30);
+                    return d < today || d > max;
                   }}
+                  fromDate={new Date()}
+                  toDate={(() => { const m = new Date(); m.setDate(m.getDate() + 30); return m; })()}
                   locale={pt}
                   className="p-0 pointer-events-auto"
                 />
