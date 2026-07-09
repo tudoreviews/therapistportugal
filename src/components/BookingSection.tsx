@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { CheckCircle, ArrowLeft, Clock, Search, Loader2, Copy } from "lucide-react";
+import { CheckCircle, ArrowLeft, Clock, Search, Loader2, Copy, X, Plus } from "lucide-react";
 import { format } from "date-fns";
 import { pt } from "date-fns/locale";
 import { cn } from "@/lib/utils";
@@ -18,6 +18,11 @@ type Treatment = {
   price: number;
   duration: string;
   description: string;
+};
+
+type Session = {
+  date: Date;
+  time: string; // HH:mm
 };
 
 const THERAPIST_NAME = "Dr. Nuno Therapist";
@@ -43,19 +48,19 @@ const isUrgencyTime = (time?: string) => {
   if (!time) return false;
   const [hours, minutes] = time.split(":").map(Number);
   const timeInMinutes = hours * 60 + minutes;
-  
-  const urgencyStart = 21 * 60 + 30; // 21:30
-  const urgencyEnd = 8 * 60; // 08:00
-  
-  // Handles crossing midnight
+  const urgencyStart = 21 * 60 + 30;
+  const urgencyEnd = 8 * 60;
   return timeInMinutes >= urgencyStart || timeInMinutes <= urgencyEnd;
 };
+
+const dateKey = (d: Date) => format(d, "yyyy-MM-dd");
+const sessionKey = (s: Session) => `${dateKey(s.date)}_${s.time}`;
 
 const BookingSection = () => {
   const [step, setStep] = useState(1);
   const [selectedTreatment, setSelectedTreatment] = useState<Treatment | null>(null);
-  const [selectedDate, setSelectedDate] = useState<Date>();
-  const [selectedTime, setSelectedTime] = useState<string>();
+  const [viewDate, setViewDate] = useState<Date>();
+  const [sessions, setSessions] = useState<Session[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -90,6 +95,10 @@ const BookingSection = () => {
     }
   };
 
+  useEffect(() => {
+    if (viewDate) fetchBookedSlots(viewDate);
+  }, [viewDate]);
+
   const filteredTreatments = treatments.filter((t) =>
     t.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -99,8 +108,32 @@ const BookingSection = () => {
     setStep(2);
   };
 
+  const toggleSession = (date: Date, time: string) => {
+    const key = `${dateKey(date)}_${time}`;
+    setSessions((prev) => {
+      const exists = prev.find((s) => sessionKey(s) === key);
+      if (exists) return prev.filter((s) => sessionKey(s) !== key);
+      return [...prev, { date, time }].sort((a, b) => {
+        const da = new Date(a.date); da.setHours(...(a.time.split(":").map(Number) as [number, number]), 0, 0);
+        const db = new Date(b.date); db.setHours(...(b.time.split(":").map(Number) as [number, number]), 0, 0);
+        return da.getTime() - db.getTime();
+      });
+    });
+  };
+
+  const removeSession = (key: string) => {
+    setSessions((prev) => prev.filter((s) => sessionKey(s) !== key));
+  };
+
+  const sessionsOnViewDate = viewDate
+    ? sessions.filter((s) => dateKey(s.date) === dateKey(viewDate)).map((s) => s.time)
+    : [];
+
+  const hasUrgency = sessions.some((s) => isUrgencyTime(s.time));
+  const totalPrice = selectedTreatment ? sessions.length * selectedTreatment.price : 0;
+
   const handleConfirm = async () => {
-    if (!selectedTreatment || !selectedDate || !selectedTime) return;
+    if (!selectedTreatment || sessions.length === 0) return;
     if (!acceptedTerms) {
       toast.error("Por favor aceite a Política de Privacidade e os Termos de Uso.");
       return;
@@ -112,25 +145,28 @@ const BookingSection = () => {
 
     setIsSubmitting(true);
 
-    const [hours, minutes] = selectedTime.split(":").map(Number);
-    const dataHora = new Date(selectedDate);
-    dataHora.setHours(hours, minutes, 0, 0);
-
-    const { error } = await supabase.from("appointments").insert({
-      nome: nome.trim(),
-      email: email.trim(),
-      telemovel: telemovel.trim(),
-      servico: selectedTreatment.name,
-      terapeuta: THERAPIST_NAME,
-      data_hora: dataHora.toISOString(),
-      preco: selectedTreatment.price,
-      status: "pending",
+    const rows = sessions.map((s) => {
+      const [h, m] = s.time.split(":").map(Number);
+      const dh = new Date(s.date);
+      dh.setHours(h, m, 0, 0);
+      return {
+        nome: nome.trim(),
+        email: email.trim(),
+        telemovel: telemovel.trim(),
+        servico: selectedTreatment.name,
+        terapeuta: THERAPIST_NAME,
+        data_hora: dh.toISOString(),
+        preco: selectedTreatment.price,
+        status: "pending",
+      };
     });
+
+    const { error } = await supabase.from("appointments").insert(rows);
 
     setIsSubmitting(false);
 
     if (error) {
-      toast.error("Erro ao guardar o agendamento. Tente novamente.");
+      toast.error("Erro ao guardar os agendamentos. Tente novamente.");
       console.error(error);
       return;
     }
@@ -142,19 +178,19 @@ const BookingSection = () => {
         telemovel: telemovel.trim(),
         servico: selectedTreatment.name,
         terapeuta: THERAPIST_NAME,
-        data_hora: dataHora.toISOString(),
-        preco: selectedTreatment.price,
+        sessoes: rows.map((r) => r.data_hora),
+        preco_total: totalPrice,
       },
     }).catch((err) => console.error("Webhook error:", err));
 
     setSubmitted(true);
-    toast.success("Agendamento confirmado com sucesso!");
+    toast.success(`${sessions.length} sessão(ões) confirmada(s) com sucesso!`);
   };
 
   const handleBack = () => {
     if (step === 2) {
-      setSelectedDate(undefined);
-      setSelectedTime(undefined);
+      setViewDate(undefined);
+      setSessions([]);
       setStep(1);
     }
   };
@@ -162,8 +198,8 @@ const BookingSection = () => {
   const handleReset = () => {
     setStep(1);
     setSelectedTreatment(null);
-    setSelectedDate(undefined);
-    setSelectedTime(undefined);
+    setViewDate(undefined);
+    setSessions([]);
     setSubmitted(false);
     setSearchQuery("");
     setNome("");
@@ -184,14 +220,16 @@ const BookingSection = () => {
       <section id="agendar" className="py-12 md:py-24 px-6 bg-muted/30">
         <div className="max-w-lg mx-auto text-center animate-fade-in">
           <img src={logo} alt="Unconventional Therapist" className="h-16 w-auto object-contain mx-auto mb-8" />
-          
+
           <div className="w-20 h-20 rounded-full bg-primary/10 mx-auto mb-6 flex items-center justify-center">
             <CheckCircle className="text-primary" size={40} />
           </div>
-          
+
           <h2 className="text-3xl font-bold tracking-tight mb-2">Agendamento confirmado!</h2>
-          <p className="text-muted-foreground mb-8">O seu pedido foi recebido. Finalize o pagamento para validar.</p>
-          
+          <p className="text-muted-foreground mb-8">
+            {sessions.length} sessão(ões) reservada(s). Finalize o pagamento para validar.
+          </p>
+
           {/* Summary */}
           <div className="bg-card border border-border rounded-2xl p-6 text-left mb-6 shadow-sm">
             <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-4 border-b border-border pb-2">Resumo da Marcação</h3>
@@ -208,35 +246,37 @@ const BookingSection = () => {
                 <span className="text-muted-foreground text-sm">Terapeuta</span>
                 <span className="text-sm font-semibold">{THERAPIST_NAME}</span>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-muted-foreground text-sm">Data</span>
-                <span className="text-sm font-semibold">{selectedDate && format(selectedDate, "PPP", { locale: pt })}</span>
+
+              <div className="pt-3 border-t border-border">
+                <p className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+                  Sessões Reservadas ({sessions.length})
+                </p>
+                <ul className="space-y-2">
+                  {sessions.map((s) => (
+                    <li key={sessionKey(s)} className="flex justify-between items-center text-sm">
+                      <span className="font-semibold">
+                        {format(s.date, "d 'de' MMM", { locale: pt })} · {s.time}
+                      </span>
+                      {isUrgencyTime(s.time) && (
+                        <span className="text-[10px] text-amber-600 font-bold uppercase">(Urgência)</span>
+                      )}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-muted-foreground text-sm">Hora</span>
-                <span className="text-sm font-semibold flex items-center gap-2">
-                  {selectedTime}
-                  {isUrgencyTime(selectedTime) && (
-                    <span className="text-[10px] text-amber-600 font-bold uppercase">(Urgência)</span>
-                  )}
-                </span>
-              </div>
-              
-              {isUrgencyTime(selectedTime) && (
+
+              {hasUrgency && (
                 <div className="py-2 px-3 bg-red-50 rounded-lg border border-red-100 mt-2">
                   <p className="text-[11px] text-red-600 font-bold leading-tight">
-                    Nota: Este horário está sujeito a uma Taxa de Urgência (valor sob consulta via WhatsApp).
+                    Nota: Existem horários sujeitos a uma Taxa de Urgência (valor sob consulta via WhatsApp).
                   </p>
                 </div>
               )}
 
               <div className="pt-3 flex justify-between items-center border-t border-border">
                 <span className="font-bold text-sm">Valor Total</span>
-                <span className={cn(
-                  "font-black text-primary",
-                  isUrgencyTime(selectedTime) ? "text-base" : "text-lg"
-                )}>
-                  {isUrgencyTime(selectedTime) ? "A combinar (Taxa de Urgência)" : `${selectedTreatment?.price} €`}
+                <span className="font-black text-primary text-lg">
+                  {totalPrice} €{hasUrgency ? " + Taxa" : ""}
                 </span>
               </div>
             </div>
@@ -248,17 +288,16 @@ const BookingSection = () => {
               <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
               Efetue o Pagamento para Validar
             </h3>
-            
+
             <div className="space-y-6">
-              {/* Multibanco */}
               <div className="p-4 bg-[#1A1A1A] rounded-xl border border-[#B4D600]/30 space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-[#005ca9] rounded-lg flex items-center justify-center text-white font-black text-[8px] leading-tight text-center shrink-0">
-                    MULTI<br/>BANCO
+                    MULTI<br />BANCO
                   </div>
                   <p className="text-sm font-bold uppercase text-white">Entidade e Referência</p>
                 </div>
-                
+
                 <div className="grid grid-cols-1 gap-3">
                   <div className="flex justify-between items-center p-2 hover:bg-white/5 rounded-lg transition-colors">
                     <span className="text-xs text-white font-medium uppercase">Entidade</span>
@@ -281,7 +320,7 @@ const BookingSection = () => {
                   <div className="flex justify-between items-center p-2">
                     <span className="text-xs text-white font-medium uppercase">Valor</span>
                     <span className="font-mono font-extrabold text-[#B4D600] text-base">
-                      {isUrgencyTime(selectedTime) ? "A combinar" : `${selectedTreatment?.price} €`}
+                      {totalPrice} €{hasUrgency ? " + Taxa" : ""}
                     </span>
                   </div>
                 </div>
@@ -293,7 +332,7 @@ const BookingSection = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="mt-6 text-center bg-primary/5 py-3 px-4 rounded-lg border border-primary/10">
               <p className="text-[11px] text-muted-foreground italic">
                 O agendamento será validado após a receção do comprovativo.
@@ -304,7 +343,7 @@ const BookingSection = () => {
           <div className="space-y-3">
             <a
               href={`https://wa.me/351936342632?text=${encodeURIComponent(
-                `Olá Dr. Nuno, o meu nome é ${nome}. Acabei de agendar o serviço ${selectedTreatment?.name} para o dia ${selectedDate ? format(selectedDate, "d 'de' MMMM", { locale: pt }) : ""} às ${selectedTime}. Segue em anexo o meu comprovativo de pagamento. Obrigado!`
+                `Olá Dr. Nuno, o meu nome é ${nome}. Acabei de agendar ${sessions.length} sessão(ões) de ${selectedTreatment?.name}:\n${sessions.map((s) => `• ${format(s.date, "d 'de' MMMM", { locale: pt })} às ${s.time}`).join("\n")}\n\nValor total: ${totalPrice}€${hasUrgency ? " + Taxa de Urgência" : ""}. Segue em anexo o meu comprovativo de pagamento. Obrigado!`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
@@ -317,7 +356,7 @@ const BookingSection = () => {
                 </div>
               </Button>
             </a>
-            
+
             <Button onClick={handleReset} variant="outline" className="w-full h-12 text-muted-foreground hover:text-foreground">
               Agendar outro tratamento
             </Button>
@@ -333,18 +372,18 @@ const BookingSection = () => {
         <div className="text-center mb-10">
           <p className="text-primary text-xs md:text-sm font-medium tracking-[0.2em] uppercase mb-3">Marque já</p>
           <h2 className="text-2xl md:text-4xl font-bold tracking-tight">Agende o seu tratamento</h2>
+          <p className="text-sm text-muted-foreground mt-3">
+            Selecione várias sessões em dias e horas diferentes para o seu tratamento prolongado.
+          </p>
         </div>
 
-        {/* Progress */}
         <div className="flex items-center justify-center gap-2 mb-10">
           {[1, 2].map((s) => (
             <div key={s} className="flex items-center gap-2">
               <div
                 className={cn(
                   "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all",
-                  step >= s
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-secondary text-muted-foreground"
+                  step >= s ? "bg-primary text-primary-foreground" : "bg-secondary text-muted-foreground"
                 )}
               >
                 {s}
@@ -356,13 +395,11 @@ const BookingSection = () => {
           ))}
         </div>
 
-        {/* Step labels */}
         <div className="flex justify-center gap-8 mb-8 text-xs text-muted-foreground">
           <span className={cn(step === 1 && "text-primary font-medium")}>Tratamento</span>
-          <span className={cn(step === 2 && "text-primary font-medium")}>Data & Hora</span>
+          <span className={cn(step === 2 && "text-primary font-medium")}>Sessões & Contacto</span>
         </div>
 
-        {/* Back button */}
         {step > 1 && (
           <button
             onClick={handleBack}
@@ -373,7 +410,6 @@ const BookingSection = () => {
           </button>
         )}
 
-        {/* Step 1: Treatment */}
         {step === 1 && (
           <div className="space-y-4">
             <div className="relative">
@@ -416,23 +452,18 @@ const BookingSection = () => {
           </div>
         )}
 
-        {/* Step 2: Date, Time & Contact */}
         {step === 2 && (
           <div className="space-y-6">
             <p className="text-sm text-muted-foreground bg-secondary/30 p-4 rounded-lg">
-              Selecionado: <span className="text-foreground font-semibold">{selectedTreatment?.name}</span>
+              Selecionado: <span className="text-foreground font-semibold">{selectedTreatment?.name}</span> · {selectedTreatment?.price}€/sessão
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-card border border-border rounded-xl p-4 flex justify-center">
                 <Calendar
                   mode="single"
-                  selected={selectedDate}
-                  onSelect={(d) => { 
-                    setSelectedDate(d); 
-                    setSelectedTime(undefined); 
-                    if (d) fetchBookedSlots(d); 
-                  }}
+                  selected={viewDate}
+                  onSelect={(d) => { if (d) setViewDate(d); }}
                   disabled={(d) => {
                     const today = new Date();
                     today.setHours(0, 0, 0, 0);
@@ -443,6 +474,12 @@ const BookingSection = () => {
                   }}
                   fromDate={new Date()}
                   toDate={(() => { const m = new Date(); m.setDate(m.getDate() + 30); return m; })()}
+                  modifiers={{
+                    hasSession: sessions.map((s) => s.date),
+                  }}
+                  modifiersClassNames={{
+                    hasSession: "bg-primary/20 text-primary font-bold ring-2 ring-primary/40",
+                  }}
                   locale={pt}
                   className="p-0 pointer-events-auto"
                 />
@@ -450,58 +487,30 @@ const BookingSection = () => {
 
               <div>
                 <p className="text-sm font-bold mb-4">
-                  {selectedDate
-                    ? format(selectedDate, "EEEE, d 'de' MMMM", { locale: pt })
+                  {viewDate
+                    ? format(viewDate, "EEEE, d 'de' MMMM", { locale: pt })
                     : "Selecione uma data"}
                 </p>
-                {selectedDate ? (
-                  <div className="space-y-6">
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {["Madrugada", "Manhã", "Tarde", "Noite"].map((period) => (
-                        <Button
-                          key={period}
-                          variant="outline"
-                          size="sm"
-                          className={cn(
-                            "rounded-full px-4",
-                            (period === "Madrugada" && parseInt(selectedTime?.split(":")[0] || "0") < 8) ||
-                            (period === "Manhã" && parseInt(selectedTime?.split(":")[0] || "0") >= 8 && parseInt(selectedTime?.split(":")[0] || "0") < 13) ||
-                            (period === "Tarde" && parseInt(selectedTime?.split(":")[0] || "0") >= 13 && parseInt(selectedTime?.split(":")[0] || "0") < 19) ||
-                            (period === "Noite" && parseInt(selectedTime?.split(":")[0] || "0") >= 19)
-                              ? "bg-primary text-primary-foreground border-primary"
-                              : "hover:bg-primary/10"
-                          )}
-                          onClick={() => {
-                            const firstInPeriod = timeSlots.find(time => {
-                              const h = parseInt(time.split(":")[0]);
-                              if (period === "Madrugada") return h < 8;
-                              if (period === "Manhã") return h >= 8 && h < 13;
-                              if (period === "Tarde") return h >= 13 && h < 19;
-                              if (period === "Noite") return h >= 19;
-                              return false;
-                            });
-                            if (firstInPeriod) setSelectedTime(firstInPeriod);
-                          }}
-                        >
-                          {period}
-                        </Button>
-                      ))}
-                    </div>
-
+                {viewDate ? (
+                  <div className="space-y-4">
+                    <p className="text-xs text-muted-foreground">
+                      Clique em cada horário desejado para adicionar/remover da lista.
+                    </p>
                     <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-[400px] overflow-y-auto p-1 scrollbar-thin scrollbar-thumb-primary/20">
                       {timeSlots.map((time) => {
                         const isBooked = bookedSlots.includes(time);
-                        
+                        const isSelected = sessionsOnViewDate.includes(time);
+
                         return (
                           <button
                             key={time}
-                            onClick={() => !isBooked && setSelectedTime(time)}
+                            onClick={() => !isBooked && toggleSession(viewDate, time)}
                             disabled={isBooked}
                             className={cn(
                               "h-14 rounded-lg text-sm font-bold border transition-all flex flex-col items-center justify-center relative",
                               isBooked
                                 ? "bg-muted text-muted-foreground border-border opacity-50 cursor-not-allowed line-through"
-                                : selectedTime === time
+                                : isSelected
                                   ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
                                   : isUrgencyTime(time)
                                     ? "bg-amber-500/5 border-amber-500/30 text-foreground hover:border-amber-500/60"
@@ -510,7 +519,9 @@ const BookingSection = () => {
                           >
                             <span>{time}</span>
                             {isUrgencyTime(time) && (
-                              <span className="text-[9px] font-medium text-amber-600 mt-0.5 animate-pulse">(Urgência)</span>
+                              <span className={cn("text-[9px] font-medium mt-0.5", isSelected ? "text-primary-foreground/80" : "text-amber-600")}>
+                                (Urgência)
+                              </span>
                             )}
                           </button>
                         );
@@ -523,6 +534,57 @@ const BookingSection = () => {
                   </div>
                 )}
               </div>
+            </div>
+
+            {/* Cart of selected sessions */}
+            <div className="bg-card border border-border rounded-2xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-base font-bold flex items-center gap-2">
+                  <Plus size={16} className="text-primary" />
+                  Sessões Selecionadas
+                  <span className="text-xs text-muted-foreground font-normal">({sessions.length})</span>
+                </h3>
+                {sessions.length > 0 && (
+                  <span className="text-sm font-black text-primary">
+                    Total: {totalPrice} €{hasUrgency ? " + Taxa" : ""}
+                  </span>
+                )}
+              </div>
+
+              {sessions.length === 0 ? (
+                <p className="text-sm text-muted-foreground text-center py-6 border-2 border-dashed border-border rounded-lg">
+                  Nenhuma sessão adicionada. Selecione horários no calendário acima.
+                </p>
+              ) : (
+                <ul className="space-y-2">
+                  {sessions.map((s) => (
+                    <li
+                      key={sessionKey(s)}
+                      className="flex items-center justify-between bg-secondary/40 rounded-lg px-4 py-3"
+                    >
+                      <div className="flex flex-col">
+                        <span className="text-sm font-semibold">
+                          {format(s.date, "EEEE, d 'de' MMM", { locale: pt })} · {s.time}
+                        </span>
+                        <span className="text-xs text-muted-foreground flex items-center gap-2">
+                          {selectedTreatment?.price} €
+                          {isUrgencyTime(s.time) && (
+                            <span className="text-amber-600 font-bold uppercase">· Urgência</span>
+                          )}
+                        </span>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-muted-foreground hover:text-destructive"
+                        onClick={() => removeSession(sessionKey(s))}
+                      >
+                        <X size={16} />
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
 
             <div className="bg-card border border-border rounded-2xl p-6 space-y-6">
@@ -544,24 +606,24 @@ const BookingSection = () => {
             </div>
 
             <div className="flex items-start space-x-3 p-4 bg-muted/20 rounded-xl border border-border">
-              <Checkbox 
-                id="terms" 
-                checked={acceptedTerms} 
+              <Checkbox
+                id="terms"
+                checked={acceptedTerms}
                 onCheckedChange={(checked) => setAcceptedTerms(checked === true)}
                 className="mt-1"
               />
-              <Label 
-                htmlFor="terms" 
+              <Label
+                htmlFor="terms"
                 className="text-xs md:text-sm text-muted-foreground leading-relaxed cursor-pointer"
               >
                 Li e aceito a <a href="/politica-privacidade" target="_blank" className="text-primary hover:underline">Política de Privacidade</a> e os <a href="/termos-uso" target="_blank" className="text-primary hover:underline">Termos de Uso</a>
               </Label>
             </div>
 
-            {isUrgencyTime(selectedTime) && (
+            {hasUrgency && (
               <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-center">
                 <p className="text-red-600 font-bold text-sm">
-                  Nota: Este horário está sujeito a uma Taxa de Urgência (valor sob consulta via WhatsApp).
+                  Nota: Existem sessões em horário de Urgência, sujeitas a Taxa adicional (valor sob consulta via WhatsApp).
                 </p>
               </div>
             )}
@@ -569,13 +631,13 @@ const BookingSection = () => {
             <Button
               size="lg"
               className="w-full h-14 md:h-16 text-lg font-bold rounded-xl shadow-xl shadow-primary/20"
-              disabled={!selectedDate || !selectedTime || !contactFieldsFilled || !acceptedTerms || isSubmitting}
+              disabled={sessions.length === 0 || !contactFieldsFilled || !acceptedTerms || isSubmitting}
               onClick={handleConfirm}
             >
               {isSubmitting ? (
                 <><Loader2 className="mr-2 h-5 w-5 animate-spin" /> A guardar...</>
               ) : (
-                <>Confirmar Agendamento — {isUrgencyTime(selectedTime) ? "A combinar (Taxa de Urgência)" : `${selectedTreatment?.price} €`}</>
+                <>Confirmar {sessions.length} Sessão(ões) — {totalPrice} €{hasUrgency ? " + Taxa" : ""}</>
               )}
             </Button>
 
